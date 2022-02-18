@@ -1,0 +1,25 @@
+* {
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.nextimg {
+  img {
+    width: 100% !important;
+    position: relative !important;
+    height: 60rem !important;
+  }
+
+  & > div {
+    position: unset !important;
+    overflow: visible !important;
+  }
+}
