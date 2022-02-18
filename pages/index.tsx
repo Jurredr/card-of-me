@@ -1,17 +1,14 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+import NavBar from '../components/NavBar'
 
 const Home: NextPage = () => {
   return (
-    <div className="flex">
-      <Image
-        className="nextimg"
-        src="/icon.svg"
-        alt=""
-        width={30}
-        height={30}
-      />
-      <p className=" text-red-400">CardOf.Me</p>
+    <div className="relative flex flex-col h-[200vh] w-screen bg-black">
+      <NavBar />
+      <p className="text-black">testtearaeradawdawd</p>
+      <p className="text-white">testtearaeradawdawd</p>
+      <p className="text-white">testtearaeradawdawd</p>
+      <p className="text-white">testtearaeradawdawd</p>
     </div>
   )
 }

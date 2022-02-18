@@ -5,7 +5,7 @@ import 'windi.css'
 import '../styles/globals.scss'
 
 const theme = createTheme({
-  type: 'light',
+  type: 'dark',
   theme: {
     colors: {},
     space: {},
