@@ -2,7 +2,7 @@
     "name": "cardofme",
     "version": "1.0.0",
     "private": true,
-    "description": "[💌] Fancy & modern profile / link cards.",
+    "description": "[🪐] Fancy & modern profile / link cards.",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
