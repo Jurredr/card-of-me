@@ -33,7 +33,9 @@ const NavBar: React.FC = () => {
           <FiUser />
           <FiChevronDown />
         </div>
-        <Avatar squared text="Jurre" />
+        <Link href="/[user]" as="@jurre" passHref>
+          <Avatar squared text="Jurre" className="cursor-pointer" />
+        </Link>
       </div>
     </div>
   )
