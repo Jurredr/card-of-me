@@ -1,9 +1,12 @@
-import { Avatar, Input } from '@nextui-org/react'
+import { Avatar, Button, Input } from '@nextui-org/react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FiChevronDown, FiUser } from 'react-icons/fi'
+import { FiChevronDown, FiLogIn, FiUser } from 'react-icons/fi'
 
 const NavBar: React.FC = () => {
+  const { data: session } = useSession()
+
   return (
     <div
       className="fixed flex justify-evenly items-center bg-black bg-opacity-60 w-screen h-20 z-100"
@@ -29,13 +32,35 @@ const NavBar: React.FC = () => {
 
       {/* Account */}
       <div className="flex justify-center items-center gap-3 w-50">
-        <div className="flex cursor-pointer">
-          <FiUser />
-          <FiChevronDown />
-        </div>
-        <Link href="/[user]" as="@jurre" passHref>
-          <Avatar squared text="Jurre" className="cursor-pointer" />
-        </Link>
+        {/* Signed in */}
+        {session && (
+          <>
+            <div className="flex cursor-pointer">
+              <FiUser />
+              <FiChevronDown />
+            </div>
+            <Link href="/[user]" as="@jurre" passHref>
+              <Avatar squared text="Jurre" className="cursor-pointer" />
+            </Link>
+          </>
+        )}
+
+        {/* Not signed in */}
+        {!session && (
+          <div className="flex justify-center items-center gap-6">
+            <Link href="/sign-in" passHref>
+              <div className="flex justify-center items-center gap-2 cursor-pointer">
+                <FiLogIn />
+                Login
+              </div>
+            </Link>
+            <Link href="/sign-up" passHref>
+              <Button color="gradient" auto>
+                Create your card!
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )
