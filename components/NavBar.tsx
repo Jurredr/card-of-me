@@ -1,5 +1,6 @@
 import { Avatar, Input } from '@nextui-org/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FiChevronDown, FiUser } from 'react-icons/fi'
 
 const NavBar: React.FC = () => {
@@ -9,17 +10,19 @@ const NavBar: React.FC = () => {
       style={{ backdropFilter: 'saturate(180%) blur(10px)' }}
     >
       {/* Logo */}
-      <div className="flex gap-2 w-50">
-        <Image
-          className="nextimg"
-          src="/icon.svg"
-          alt=""
-          width={30}
-          height={30}
-          draggable={false}
-        />
-        <p className="text-white text-3xl">CardOf.Me</p>
-      </div>
+      <Link href="/" passHref>
+        <div className="flex gap-2 w-50 cursor-pointer">
+          <Image
+            className="nextimg"
+            src="/icon.svg"
+            alt=""
+            width={30}
+            height={30}
+            draggable={false}
+          />
+          <p className="text-white text-3xl">CardOf.Me</p>
+        </div>
+      </Link>
 
       {/* Search */}
       <Input bordered labelLeft="@" placeholder="Search..." />
