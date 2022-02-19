@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
     >
       {/* Logo */}
       <Link href="/" passHref>
-        <div className="flex gap-2 w-50 cursor-pointer">
+        <div className="flex gap-2 w-50 cursor-pointer hover:opacity-75 transition-all">
           <Image
             className="nextimg"
             src="/icon.svg"
@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
         {!session && (
           <div className="flex justify-center items-center gap-6">
             <Link href="/sign-in" passHref>
-              <div className="flex justify-center items-center gap-2 cursor-pointer">
+              <div className="flex justify-center items-center gap-2 transition-all hover:gap-[0.35rem] hover:ml-[0.15rem] cursor-pointer">
                 <FiLogIn />
                 Login
               </div>
