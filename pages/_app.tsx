@@ -1,8 +1,10 @@
 import { createTheme, NextUIProvider } from '@nextui-org/react'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import 'windi.css'
 import '../styles/globals.scss'
 import '@fontsource/montserrat'
+import { SSRProvider } from 'react-aria'
 
 // NextUI theme
 const theme = createTheme({
@@ -16,13 +18,17 @@ const theme = createTheme({
   }
 })
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <NextUIProvider theme={theme}>
-      <div className="relative h-screen w-screen bg-black">
-        <Component {...pageProps} />
-      </div>
-    </NextUIProvider>
+    <SSRProvider>
+      <SessionProvider session={session}>
+        <NextUIProvider theme={theme}>
+          <div className="relative h-screen w-screen bg-black">
+            <Component {...pageProps} />
+          </div>
+        </NextUIProvider>
+      </SessionProvider>
+    </SSRProvider>
   )
 }
 
