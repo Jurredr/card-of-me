@@ -28,7 +28,15 @@ const NavBar: React.FC = () => {
       </Link>
 
       {/* Search */}
-      <Input bordered labelLeft="@" placeholder="Search..." />
+      <Input
+        bordered
+        labelLeft="@"
+        placeholder="Search..."
+        clearable
+        onSubmit={() => {
+          console.log('test')
+        }}
+      />
 
       {/* Account */}
       <div className="flex justify-center items-center gap-3 w-50">
