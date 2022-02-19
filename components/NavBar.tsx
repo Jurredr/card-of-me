@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
       <Input bordered labelLeft="@" placeholder="Search..." />
 
       {/* Account */}
-      <div className="flex justify-center items-center gap-3 w-40">
+      <div className="flex justify-center items-center gap-3 w-50">
         <div className="flex cursor-pointer">
           <FiUser />
           <FiChevronDown />
