@@ -6,7 +6,7 @@ import NavBar from '../components/NavBar'
 
 const Home: NextPage = () => {
   return (
-    <div className="relative flex flex-col h-[200vh] w-screen bg-black">
+    <div className="flex flex-col h-[200vh]">
       <NavBar />
       <div className="flex flex-col items-center z-0 mt-40">
         <div className="bg-dark-50 w-1/2 h-72 rounded-3xl absolute -z-1 flex justify-end">
