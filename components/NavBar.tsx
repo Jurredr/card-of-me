@@ -49,9 +49,9 @@ const NavBar: React.FC = () => {
         {!session && (
           <div className="flex justify-center items-center gap-6">
             <Link href="/sign-in" passHref>
-              <div className="flex justify-center items-center gap-2 transition-all hover:gap-[0.35rem] hover:ml-[0.15rem] cursor-pointer">
+              <div className="flex justify-center items-center gap-2 transition-all hover:gap-[0.35rem] hover:ml-[0.15rem] cursor-pointer whitespace-nowrap">
                 <FiLogIn />
-                Login
+                <p className="tracking-normal">Sign in</p>
               </div>
             </Link>
             <Link href="/sign-up" passHref>
