@@ -2,6 +2,7 @@ import { createTheme, NextUIProvider } from '@nextui-org/react'
 import type { AppProps } from 'next/app'
 import 'windi.css'
 import '../styles/globals.scss'
+import '@fontsource/montserrat'
 
 // NextUI theme
 const theme = createTheme({
@@ -9,7 +10,9 @@ const theme = createTheme({
   theme: {
     colors: {},
     space: {},
-    fonts: {}
+    fonts: {
+      montserrat: 'Montserrat'
+    }
   }
 })
 
