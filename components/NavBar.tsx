@@ -1,5 +1,5 @@
 import { Avatar, Button, Input } from '@nextui-org/react'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FiChevronDown, FiLogIn, FiUser } from 'react-icons/fi'
@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
         {/* Signed in */}
         {session && (
           <>
-            <div className="flex cursor-pointer">
+            <div className="flex cursor-pointer" onClick={() => signOut()}>
               <FiUser />
               <FiChevronDown />
             </div>

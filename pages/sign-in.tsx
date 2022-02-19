@@ -1,11 +1,21 @@
 import { Button, Input, StyledLink } from '@nextui-org/react'
-import { NextPage } from 'next'
+import { GetServerSidePropsContext, NextPage } from 'next'
+import {
+  ClientSafeProvider,
+  getProviders,
+  getSession,
+  signIn
+} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BsGoogle } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
 
-const SignIn: NextPage = () => {
+interface Props {
+  providers: ClientSafeProvider
+}
+
+const SignIn: NextPage<Props> = (props) => {
   return (
     <div className="w-full h-full grid grid-cols-2 items-center justify-center">
       {/* Left */}
@@ -45,12 +55,21 @@ const SignIn: NextPage = () => {
 
           {/* Buttons */}
           <div className="mt-5 w-full flex flex-col gap-3 justify-center items-center">
-            <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-400">
-              <div className="flex items-center justify-center gap-2 w-full">
-                <BsGoogle />
-                Continue with Google
-              </div>
-            </Button>
+            {/* OAuth */}
+            {Object.values(props.providers).map((provider) => (
+              <Button
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+                key={provider.name}
+                onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+              >
+                <div className="flex items-center justify-center gap-2 w-full">
+                  <BsGoogle />
+                  Continue with {provider.name}
+                </div>
+              </Button>
+            ))}
+
+            {/* Email */}
             <p className="tracking-normal">or</p>
             <Input width="100%" placeholder="Email" type="email" />
             <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-400">
@@ -64,6 +83,23 @@ const SignIn: NextPage = () => {
       <div className="bg-gradient-to-br from-cyan-500 to-purple-600 relative hidden lg:flex self-center items-center float-right w-[50vw] h-screen"></div>
     </div>
   )
+}
+
+export async function getServerSideProps({ req }: GetServerSidePropsContext) {
+  const session = await getSession({ req })
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  const providers = await getProviders()
+  return {
+    props: { providers }
+  }
 }
 
 export default SignIn
