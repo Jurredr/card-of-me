@@ -40,7 +40,11 @@ const NavBar: React.FC = () => {
               <FiChevronDown />
             </div>
             <Link href="/[user]" as="@jurre" passHref>
-              <Avatar squared text="Jurre" className="cursor-pointer" />
+              <Avatar
+                squared
+                text={session.user.username}
+                className="cursor-pointer"
+              />
             </Link>
           </>
         )}

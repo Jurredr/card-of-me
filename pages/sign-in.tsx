@@ -47,9 +47,9 @@ const SignIn: NextPage<Props> = (props) => {
           <p className="mt-2">
             <p className="tracking-normal">
               Don&apos;t have an account?{' '}
-              <StyledLink href="/sign-up" underline>
-                Sign up for free
-              </StyledLink>
+              <Link href="/sign-up" passHref>
+                <StyledLink underline>Sign up for free</StyledLink>
+              </Link>
             </p>
           </p>
 
