@@ -12,7 +12,7 @@ export default NextAuth({
 
   // The callbacks
   callbacks: {
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       session.user.username = session.user.name
         .split(' ')
         .join('')
@@ -21,5 +21,7 @@ export default NextAuth({
       session.user.uid = token.sub
       return session
     }
-  }
+  },
+
+  secret: process.env.JWT_SECRET
 })
