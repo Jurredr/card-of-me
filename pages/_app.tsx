@@ -1,24 +1,24 @@
 import { createTheme, NextUIProvider } from '@nextui-org/react'
 import type { AppProps } from 'next/app'
-import '@fontsource/montserrat'
 import 'windi.css'
 import '../styles/globals.scss'
 
+// NextUI theme
 const theme = createTheme({
   type: 'dark',
   theme: {
     colors: {},
     space: {},
-    fonts: {
-      montserrat: 'Montserrat'
-    }
+    fonts: {}
   }
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <NextUIProvider theme={theme}>
-      <Component {...pageProps} />
+      <div className="relative h-screen w-screen bg-black">
+        <Component {...pageProps} />
+      </div>
     </NextUIProvider>
   )
 }

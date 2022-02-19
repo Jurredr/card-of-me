@@ -10,7 +10,6 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@fontsource/montserrat": "^4.5.5",
         "@nextui-org/react": "^1.0.2-beta.4",
         "next": "12.1.0",
         "react": "17.0.2",

@@ -9,9 +9,7 @@ export default defineConfig({
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      fontFamily: {
-        montserrat: ['Montserrat']
-      },
+      fontFamily: {},
       colors: {}
     },
     screens: {
