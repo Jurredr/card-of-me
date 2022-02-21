@@ -2,9 +2,11 @@ import { Avatar, Button, Input } from '@nextui-org/react'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FiChevronDown, FiLogIn, FiUser } from 'react-icons/fi'
 
 const NavBar: React.FC = () => {
+  const router = useRouter()
   const { data: session } = useSession()
 
   return (
@@ -33,8 +35,11 @@ const NavBar: React.FC = () => {
         labelLeft="@"
         placeholder="Search..."
         clearable
-        onSubmit={() => {
-          console.log('test')
+        onKeyPress={(event) => {
+          if (event.key === 'Enter') {
+            // @ts-ignore
+            router.push(`/@${event.target.value}`)
+          }
         }}
       />
 
