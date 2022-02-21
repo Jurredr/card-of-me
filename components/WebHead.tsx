@@ -41,7 +41,7 @@ const WebHead: React.FC = () => {
       <meta property="og:image:url" content="/web-banner.png" />
       <meta property="og:image:secure_url" content="/web-banner.png" />
       <meta property="og:url" content="https://www.cardof.me" />
-      <meta property="og:site_name" content="CardOf.me" />
+      <meta property="og:site_name" content="CardOf.Me" />
       <meta property="og:email" content="contact@jurre.me" />
 
       {/* Twitter tags */}
