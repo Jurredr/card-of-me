@@ -58,7 +58,7 @@ const SignUp: NextPage<Props> = (props) => {
           <p className="mt-2">
             <p className="tracking-normal">
               Already have an account?{' '}
-              <Link href="/sign-up" passHref>
+              <Link href="/sign-in" passHref>
                 <StyledLink underline>Sign in</StyledLink>
               </Link>
             </p>
