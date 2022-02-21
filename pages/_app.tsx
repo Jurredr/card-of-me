@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import 'windi.css'
 import '../styles/globals.scss'
 import '@fontsource/montserrat'
+import WebHead from '../components/WebHead'
 
 // NextUI theme
 const theme = createTheme({
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
       <NextUIProvider theme={theme}>
+        <WebHead />
         <div className="relative h-screen w-screen bg-black">
           <Component {...pageProps} />
         </div>
