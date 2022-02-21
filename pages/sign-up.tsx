@@ -1,4 +1,10 @@
-import { Button, Checkbox, Input, StyledLink } from '@nextui-org/react'
+import {
+  Button,
+  Checkbox,
+  Input,
+  StyledLink,
+  useInput
+} from '@nextui-org/react'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import {
   ClientSafeProvider,
@@ -8,6 +14,7 @@ import {
 } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { BsGoogle } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
 
@@ -16,6 +23,10 @@ interface Props {
 }
 
 const SignUp: NextPage<Props> = (props) => {
+  const router = useRouter()
+  const { email } = router.query
+  const { value, bindings } = useInput(email ? String(email) : '')
+
   return (
     <div className="w-full h-full grid grid-cols-2 items-center justify-center">
       {/* Left */}
@@ -83,7 +94,12 @@ const SignUp: NextPage<Props> = (props) => {
               placeholder="Username"
               type="text"
             />
-            <Input width="100%" placeholder="Email" type="email" />
+            <Input
+              {...bindings}
+              width="100%"
+              placeholder="Email"
+              type="email"
+            />
             <div className="flex gap-3">
               <Input width="100%" placeholder="First name" type="text" />
               <Input width="100%" placeholder="Last name" type="text" />
