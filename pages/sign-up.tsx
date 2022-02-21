@@ -54,7 +54,7 @@ const SignUp: NextPage<Props> = (props) => {
           </p>
 
           {/* Buttons */}
-          <div className="mt-5 w-full flex flex-col gap-3 justify-center items-center">
+          <div className="mt-5 w-full flex flex-col gap-4 justify-center items-center">
             {/* OAuth */}
             {Object.values(props.providers).map((provider) => (
               <Button
@@ -69,8 +69,14 @@ const SignUp: NextPage<Props> = (props) => {
               </Button>
             ))}
 
+            {/* Or */}
+            <div className="flex justify-center items-center w-full gap-4">
+              <hr className="w-full opacity-50" />
+              <p className="tracking-normal text-sm">or</p>
+              <hr className="w-full opacity-50" />
+            </div>
+
             {/* Email */}
-            <p className="tracking-normal">or</p>
             <Input
               labelLeft="@"
               width="100%"
