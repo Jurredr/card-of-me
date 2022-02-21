@@ -1,4 +1,4 @@
-import { Button, Input, StyledLink } from '@nextui-org/react'
+import { Button, Input, Loading, StyledLink, useInput } from '@nextui-org/react'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import {
   ClientSafeProvider,
@@ -8,6 +8,8 @@ import {
 } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useMemo, useState } from 'react'
 import { BsGoogle } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
 
@@ -16,6 +18,37 @@ interface Props {
 }
 
 const SignIn: NextPage<Props> = (props) => {
+  const router = useRouter()
+  const [isEmailValid, setEmailValid] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const { value, bindings } = useInput('')
+  const helper = useMemo(() => {
+    if (!value)
+      return {
+        color: '',
+        text: ''
+      }
+    const isValid: RegExpMatchArray | null = String(value)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    setEmailValid(isValid !== null ? (isValid ? true : false) : false)
+    return {
+      color: isValid ? '' : 'error',
+      text: isValid ? '' : 'Please enter a valid email address'
+    }
+  }, [value])
+
+  const emailLoginClicked = () => {
+    if (!isEmailValid) return
+    setLoading(true)
+    setTimeout(() => {
+      router.push(`/sign-up?email=${value}`)
+    }, 1000)
+  }
+
   return (
     <div className="w-full h-full grid grid-cols-2 items-center justify-center">
       {/* Left */}
@@ -77,10 +110,36 @@ const SignIn: NextPage<Props> = (props) => {
             </div>
 
             {/* Email */}
-            <Input width="100%" placeholder="Email" type="email" />
-            <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-400">
-              Sign in
-            </Button>
+            <Input
+              {...bindings}
+              // @ts-ignore
+              status={helper.color}
+              // @ts-ignore
+              color={helper.color}
+              // @ts-ignore
+              helperColor={helper.color}
+              helperText={helper.text}
+              width="100%"
+              placeholder="Email"
+              type="email"
+            />
+            {!isEmailValid && value && <div></div>}
+            {!loading && (
+              <Button
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+                onClick={emailLoginClicked}
+              >
+                Sign in
+              </Button>
+            )}
+            {loading && (
+              <Button
+                clickable={false}
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+              >
+                <Loading color="white" size="sm" />
+              </Button>
+            )}
           </div>
         </div>
       </div>
