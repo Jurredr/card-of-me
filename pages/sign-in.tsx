@@ -33,7 +33,7 @@ const SignIn: NextPage = () => {
   }
 
   useEffect(() => {
-    // loadGoogle()
+    loadGoogle()
     console.log('called')
   }, [])
 
@@ -180,17 +180,17 @@ const SignIn: NextPage = () => {
   )
 }
 
-export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  const session = await getSession({ req })
-  if (session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
-  }
-  return { props: {} }
-}
+// export async function getServerSideProps({ req }: GetServerSidePropsContext) {
+//   const session = await getSession({ req })
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false
+//       }
+//     }
+//   }
+//   return { props: {} }
+// }
 
 export default SignIn
