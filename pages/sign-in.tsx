@@ -9,6 +9,7 @@ import { FiChevronLeft } from 'react-icons/fi'
 import EmailField from '../components/auth/EmailField'
 import OAuthButtons from '../components/auth/OAuthButtons'
 import DividerText from '../components/DividerText'
+import LoadBasedButton from '../components/LoadBasedButton'
 
 const SignIn: NextPage = () => {
   const router = useRouter()
@@ -20,12 +21,14 @@ const SignIn: NextPage = () => {
     router.push('/')
   }
 
-  // Submit handling
-
-  const [submitLoading, setSubmitLoading] = useState(false)
+  // Input handling
 
   const [emailValid, setEmailValid] = useState(false)
   const [emailValue, setEmailValue] = useState('')
+
+  // Submit handling
+
+  const [submitLoading, setSubmitLoading] = useState(false)
 
   const emailLogin = () => {
     if (!emailValid) return
@@ -85,22 +88,13 @@ const SignIn: NextPage = () => {
               validCallback={setEmailValid}
               valueCallback={setEmailValue}
             />
-            {!submitLoading && (
-              <Button
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-                onClick={emailLogin}
-              >
-                Sign in
-              </Button>
-            )}
-            {submitLoading && (
-              <Button
-                clickable={false}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-              >
-                <Loading color="white" size="sm" />
-              </Button>
-            )}
+
+            {/* Submit */}
+            <LoadBasedButton
+              text="Sign in"
+              loading={submitLoading}
+              onClick={emailLogin}
+            />
           </div>
         </div>
       </div>

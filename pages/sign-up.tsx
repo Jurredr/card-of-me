@@ -1,21 +1,19 @@
-import {
-  Button,
-  Checkbox,
-  Input,
-  StyledLink,
-  useInput
-} from '@nextui-org/react'
+import { Button, Checkbox, Input, StyledLink } from '@nextui-org/react'
 import { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
+import EmailField from '../components/auth/EmailField'
 import OAuthButtons from '../components/auth/OAuthButtons'
 import DividerText from '../components/DividerText'
+import LoadBasedButton from '../components/LoadBasedButton'
 
 const SignUp: NextPage = () => {
   const router = useRouter()
+  const { email } = router.query
 
   // Session re-routing
 
@@ -24,14 +22,21 @@ const SignUp: NextPage = () => {
     router.push('/')
   }
 
-  // Email handling
+  // Input handling
 
-  const { email } = router.query
-  const { value, bindings } = useInput(email ? String(email) : '')
+  const [emailValid, setEmailValid] = useState(false)
 
-  // Email sign up submit
+  // Submit handling
 
-  const emailSignUp = () => {}
+  const [submitLoading, setSubmitLoading] = useState(false)
+
+  const emailSignUp = () => {
+    if (!emailValid) return
+    setSubmitLoading(true)
+    setTimeout(() => {
+      router.push('/')
+    }, 1000)
+  }
 
   return (
     <div className="w-full h-full grid grid-cols-2 items-center justify-center">
@@ -78,24 +83,27 @@ const SignUp: NextPage = () => {
             {/* Or */}
             <DividerText text="or" />
 
-            {/* Email */}
+            {/* Username */}
             <Input
               labelLeft="@"
               width="100%"
               placeholder="Username"
               type="text"
             />
-            <Input
-              {...bindings}
-              width="100%"
-              placeholder="Email"
-              type="email"
+
+            {/* Email */}
+            <EmailField
+              initialValue={email ? String(email) : ''}
+              validCallback={setEmailValid}
             />
+
+            {/* Full name */}
             <div className="flex gap-3">
               <Input width="100%" placeholder="First name" type="text" />
               <Input width="100%" placeholder="Last name" type="text" />
             </div>
 
+            {/* TOS / privacy */}
             <Checkbox className="my-2" checked={false}>
               <p className="font-normal tracking-normal text-xs whitespace-nowrap">
                 I agree to the{' '}
@@ -108,12 +116,13 @@ const SignUp: NextPage = () => {
                 </Link>
               </p>
             </Checkbox>
-            <Button
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+
+            {/* Submit */}
+            <LoadBasedButton
+              text="Sign up with email"
+              loading={submitLoading}
               onClick={emailSignUp}
-            >
-              Sign up with email
-            </Button>
+            />
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { Input, useInput } from '@nextui-org/react'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 
 interface Props {
+  initialValue?: string
   validCallback?: Dispatch<SetStateAction<boolean>>
   valueCallback?: Dispatch<SetStateAction<string>>
 }
@@ -9,7 +10,7 @@ interface Props {
 const EmailField: React.FC<Props> = (props) => {
   const [emailValid, setEmailValid] = useState(false)
 
-  const { value, bindings } = useInput('')
+  const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
     if (!value)
       return {
