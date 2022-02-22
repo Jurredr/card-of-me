@@ -11,7 +11,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FiChevronLeft } from 'react-icons/fi'
-import OAuthButtons from '../components/OAuthButtons'
+import OAuthButtons from '../components/auth/OAuthButtons'
+import DividerText from '../components/DividerText'
 
 const SignUp: NextPage = () => {
   const router = useRouter()
@@ -27,6 +28,10 @@ const SignUp: NextPage = () => {
 
   const { email } = router.query
   const { value, bindings } = useInput(email ? String(email) : '')
+
+  // Email sign up submit
+
+  const emailSignUp = () => {}
 
   return (
     <div className="w-full h-full grid grid-cols-2 items-center justify-center">
@@ -71,11 +76,7 @@ const SignUp: NextPage = () => {
             <OAuthButtons />
 
             {/* Or */}
-            <div className="flex justify-center items-center w-full gap-4">
-              <hr className="w-full opacity-50" />
-              <p className="tracking-normal text-sm">or</p>
-              <hr className="w-full opacity-50" />
-            </div>
+            <DividerText text="or" />
 
             {/* Email */}
             <Input
@@ -107,7 +108,10 @@ const SignUp: NextPage = () => {
                 </Link>
               </p>
             </Checkbox>
-            <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-400">
+            <Button
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+              onClick={emailSignUp}
+            >
               Sign up with email
             </Button>
           </div>

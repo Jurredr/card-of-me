@@ -1,12 +1,14 @@
-import { Button, Input, Loading, StyledLink, useInput } from '@nextui-org/react'
+import { Button, Loading, StyledLink } from '@nextui-org/react'
 import { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
-import OAuthButtons from '../components/OAuthButtons'
+import EmailField from '../components/auth/EmailField'
+import OAuthButtons from '../components/auth/OAuthButtons'
+import DividerText from '../components/DividerText'
 
 const SignIn: NextPage = () => {
   const router = useRouter()
@@ -18,35 +20,18 @@ const SignIn: NextPage = () => {
     router.push('/')
   }
 
-  // Email field handling
+  // Submit handling
 
-  const [isEmailValid, setEmailValid] = useState(false)
   const [submitLoading, setSubmitLoading] = useState(false)
 
-  const { value, bindings } = useInput('')
-  const helper = useMemo(() => {
-    if (!value)
-      return {
-        color: '',
-        text: ''
-      }
-    const isValid: RegExpMatchArray | null = String(value)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
-    setEmailValid(isValid !== null ? (isValid ? true : false) : false)
-    return {
-      color: isValid ? '' : 'error',
-      text: isValid ? '' : 'Please enter a valid email address'
-    }
-  }, [value])
+  const [emailValid, setEmailValid] = useState(false)
+  const [emailValue, setEmailValue] = useState('')
 
-  const emailLoginClicked = () => {
-    if (!isEmailValid) return
+  const emailLogin = () => {
+    if (!emailValid) return
     setSubmitLoading(true)
     setTimeout(() => {
-      router.push(`/sign-up?email=${value}`)
+      router.push(`/sign-up?email=${emailValue}`)
     }, 1000)
   }
 
@@ -93,31 +78,17 @@ const SignIn: NextPage = () => {
             <OAuthButtons />
 
             {/* Or */}
-            <div className="flex justify-center items-center w-full gap-4">
-              <hr className="w-full opacity-50" />
-              <p className="tracking-normal text-sm">or</p>
-              <hr className="w-full opacity-50" />
-            </div>
+            <DividerText text="or" />
 
             {/* Email */}
-            <Input
-              {...bindings}
-              // @ts-ignore
-              status={helper.color}
-              // @ts-ignore
-              color={helper.color}
-              // @ts-ignore
-              helperColor={helper.color}
-              helperText={helper.text}
-              width="100%"
-              placeholder="Email"
-              type="email"
+            <EmailField
+              validCallback={setEmailValid}
+              valueCallback={setEmailValue}
             />
-            {!isEmailValid && value && <div></div>}
             {!submitLoading && (
               <Button
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-                onClick={emailLoginClicked}
+                onClick={emailLogin}
               >
                 Sign in
               </Button>
