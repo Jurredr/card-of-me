@@ -33,7 +33,7 @@ const SignIn: NextPage = () => {
   }
 
   useEffect(() => {
-    loadGoogle()
+    // loadGoogle()
     console.log('called')
   }, [])
 
