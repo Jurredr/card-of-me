@@ -5,25 +5,26 @@ import {
   StyledLink,
   useInput
 } from '@nextui-org/react'
-import { GetServerSidePropsContext, NextPage } from 'next'
-import {
-  ClientSafeProvider,
-  getProviders,
-  getSession,
-  signIn
-} from 'next-auth/react'
+import { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { BsGoogle } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
+import OAuthButtons from '../components/OAuthButtons'
 
-interface Props {
-  providers: ClientSafeProvider
-}
-
-const SignUp: NextPage<Props> = (props) => {
+const SignUp: NextPage = () => {
   const router = useRouter()
+
+  // Session re-routing
+
+  const { data: session } = useSession()
+  if (session?.user) {
+    router.push('/')
+  }
+
+  // Email handling
+
   const { email } = router.query
   const { value, bindings } = useInput(email ? String(email) : '')
 
@@ -67,18 +68,7 @@ const SignUp: NextPage<Props> = (props) => {
           {/* Buttons */}
           <div className="mt-5 w-full flex flex-col gap-4 justify-center items-center">
             {/* OAuth */}
-            {Object.values(props.providers).map((provider) => (
-              <Button
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-                key={provider.name}
-                onClick={() => signIn(provider.id, { callbackUrl: '/' })}
-              >
-                <div className="flex items-center justify-center gap-2 w-full">
-                  <BsGoogle />
-                  Sign up with {provider.name}
-                </div>
-              </Button>
-            ))}
+            <OAuthButtons />
 
             {/* Or */}
             <div className="flex justify-center items-center w-full gap-4">
@@ -128,23 +118,6 @@ const SignUp: NextPage<Props> = (props) => {
       <div className="bg-gradient-to-br from-cyan-500 to-purple-600 relative hidden lg:flex self-center items-center float-right w-[50vw] h-screen"></div>
     </div>
   )
-}
-
-export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  const session = await getSession({ req })
-  if (session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
-  }
-
-  const providers = await getProviders()
-  return {
-    props: { providers }
-  }
 }
 
 export default SignUp

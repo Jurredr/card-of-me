@@ -1,0 +1,54 @@
+import { Button, Loading } from '@nextui-org/react'
+import { BuiltInProviderType } from 'next-auth/providers'
+import { getProviders, signIn } from 'next-auth/react'
+import { ClientSafeProvider, LiteralUnion } from 'next-auth/react/types'
+import { useEffect, useState } from 'react'
+import { BsGoogle } from 'react-icons/bs'
+
+const OAuthButtons: React.FC = () => {
+  const [authLoading, setAuthLoading] = useState(true)
+  const [authProviders, setAuthProviders] = useState<Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null>(null)
+
+  const loadOAuth = async () => {
+    const providers = await getProviders()
+    setAuthProviders(providers)
+    setAuthLoading(false)
+  }
+
+  // Load on mount
+  useEffect(() => {
+    loadOAuth()
+  }, [])
+
+  return (
+    <>
+      {authLoading && (
+        <Button
+          clickable={false}
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+        >
+          <Loading color="white" size="sm" />
+        </Button>
+      )}
+      {!authLoading &&
+        // @ts-ignore
+        Object.values(authProviders).map((provider) => (
+          <Button
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+            key={provider.name}
+            onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+          >
+            <div className="flex items-center justify-center gap-2 w-full">
+              <BsGoogle />
+              Continue with {provider.name}
+            </div>
+          </Button>
+        ))}
+    </>
+  )
+}
+
+export default OAuthButtons

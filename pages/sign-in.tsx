@@ -1,41 +1,22 @@
 import { Button, Input, Loading, StyledLink, useInput } from '@nextui-org/react'
-import { GetServerSidePropsContext, NextPage } from 'next'
-import { BuiltInProviderType } from 'next-auth/providers'
-import {
-  ClientSafeProvider,
-  getProviders,
-  getSession,
-  LiteralUnion,
-  signIn
-} from 'next-auth/react'
+import { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
-import { BsGoogle } from 'react-icons/bs'
+import { useMemo, useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
+import OAuthButtons from '../components/OAuthButtons'
 
 const SignIn: NextPage = () => {
   const router = useRouter()
 
-  // Google OAuth loading
+  // Session re-routing
 
-  const [googleLoading, setGoogleLoading] = useState(true)
-  const [authProviders, setAuthProviders] = useState<Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null>(null)
-
-  const loadGoogle = async () => {
-    const providers = await getProviders()
-    setAuthProviders(providers)
-    setGoogleLoading(false)
+  const { data: session } = useSession()
+  if (session?.user) {
+    router.push('/')
   }
-
-  useEffect(() => {
-    loadGoogle()
-    console.log('called')
-  }, [])
 
   // Email field handling
 
@@ -109,28 +90,7 @@ const SignIn: NextPage = () => {
           {/* Buttons */}
           <div className="mt-5 w-full flex flex-col gap-4 justify-center items-center">
             {/* OAuth */}
-            {googleLoading && (
-              <Button
-                clickable={false}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-              >
-                <Loading color="white" size="sm" />
-              </Button>
-            )}
-            {!googleLoading &&
-              // @ts-ignore
-              Object.values(authProviders).map((provider) => (
-                <Button
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id, { callbackUrl: '/' })}
-                >
-                  <div className="flex items-center justify-center gap-2 w-full">
-                    <BsGoogle />
-                    Continue with {provider.name}
-                  </div>
-                </Button>
-              ))}
+            <OAuthButtons />
 
             {/* Or */}
             <div className="flex justify-center items-center w-full gap-4">
@@ -179,18 +139,5 @@ const SignIn: NextPage = () => {
     </div>
   )
 }
-
-// export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-//   const session = await getSession({ req })
-//   if (session) {
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false
-//       }
-//     }
-//   }
-//   return { props: {} }
-// }
 
 export default SignIn
