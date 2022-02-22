@@ -1,26 +1,46 @@
 import { Button, Input, Loading, StyledLink, useInput } from '@nextui-org/react'
 import { GetServerSidePropsContext, NextPage } from 'next'
+import { BuiltInProviderType } from 'next-auth/providers'
 import {
   ClientSafeProvider,
   getProviders,
   getSession,
+  LiteralUnion,
   signIn
 } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BsGoogle } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
 
-interface Props {
-  providers: ClientSafeProvider
-}
-
-const SignIn: NextPage<Props> = (props) => {
+const SignIn: NextPage = () => {
   const router = useRouter()
+
+  // Google OAuth loading
+
+  const [googleLoading, setGoogleLoading] = useState(true)
+  const [authProviders, setAuthProviders] = useState<Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null>(null)
+
+  const loadGoogle = async () => {
+    const providers = await getProviders()
+    setAuthProviders(providers)
+    setGoogleLoading(false)
+  }
+
+  useEffect(() => {
+    loadGoogle()
+    console.log('called')
+  }, [])
+
+  // Email field handling
+
   const [isEmailValid, setEmailValid] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
 
   const { value, bindings } = useInput('')
   const helper = useMemo(() => {
@@ -43,7 +63,7 @@ const SignIn: NextPage<Props> = (props) => {
 
   const emailLoginClicked = () => {
     if (!isEmailValid) return
-    setLoading(true)
+    setSubmitLoading(true)
     setTimeout(() => {
       router.push(`/sign-up?email=${value}`)
     }, 1000)
@@ -89,18 +109,28 @@ const SignIn: NextPage<Props> = (props) => {
           {/* Buttons */}
           <div className="mt-5 w-full flex flex-col gap-4 justify-center items-center">
             {/* OAuth */}
-            {Object.values(props.providers).map((provider) => (
+            {googleLoading && (
               <Button
+                clickable={false}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-                key={provider.name}
-                onClick={() => signIn(provider.id, { callbackUrl: '/' })}
               >
-                <div className="flex items-center justify-center gap-2 w-full">
-                  <BsGoogle />
-                  Continue with {provider.name}
-                </div>
+                <Loading color="white" size="sm" />
               </Button>
-            ))}
+            )}
+            {!googleLoading &&
+              // @ts-ignore
+              Object.values(authProviders).map((provider) => (
+                <Button
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+                >
+                  <div className="flex items-center justify-center gap-2 w-full">
+                    <BsGoogle />
+                    Continue with {provider.name}
+                  </div>
+                </Button>
+              ))}
 
             {/* Or */}
             <div className="flex justify-center items-center w-full gap-4">
@@ -124,7 +154,7 @@ const SignIn: NextPage<Props> = (props) => {
               type="email"
             />
             {!isEmailValid && value && <div></div>}
-            {!loading && (
+            {!submitLoading && (
               <Button
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
                 onClick={emailLoginClicked}
@@ -132,7 +162,7 @@ const SignIn: NextPage<Props> = (props) => {
                 Sign in
               </Button>
             )}
-            {loading && (
+            {submitLoading && (
               <Button
                 clickable={false}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
@@ -160,11 +190,7 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
       }
     }
   }
-
-  const providers = await getProviders()
-  return {
-    props: { providers }
-  }
+  return { props: {} }
 }
 
 export default SignIn
