@@ -444,11 +444,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@next-auth/firebase-adapter@^0.1.2-pr.183-76202b42.8":
-  version "0.1.2-pr.183-76202b42.8"
-  resolved "https://registry.yarnpkg.com/@next-auth/firebase-adapter/-/firebase-adapter-0.1.2-pr.183-76202b42.8.tgz#8be37b990282c92a50ae16fd125c6bc5c29dbd5e"
-  integrity sha512-0zAPcY3YgTB0Od05hhfa1zFrpjOtvu2n/xHPFpk70ideCbxy5lXlojHNm+NRKwSeWx2nkwF3YqIEZVnsOaYnZA==
-
 "@next/env@12.1.0":
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-12.1.0.tgz#73713399399b34aa5a01771fb73272b55b22c314"
