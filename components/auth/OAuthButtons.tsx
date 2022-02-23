@@ -35,18 +35,21 @@ const OAuthButtons: React.FC = () => {
       )}
       {!authLoading &&
         // @ts-ignore
-        Object.values(authProviders).map((provider) => (
-          <Button
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
-            key={provider.name}
-            onClick={() => signIn(provider.id, { callbackUrl: '/' })}
-          >
-            <div className="flex items-center justify-center gap-2 w-full">
-              <BsGoogle />
-              Continue with {provider.name}
-            </div>
-          </Button>
-        ))}
+        Object.values(authProviders).map((provider) => {
+          if (provider.name === 'Email') return
+          return (
+            <Button
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-400"
+              key={provider.name}
+              onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+            >
+              <div className="flex items-center justify-center gap-2 w-full">
+                <BsGoogle />
+                Continue with {provider.name}
+              </div>
+            </Button>
+          )
+        })}
     </>
   )
 }
