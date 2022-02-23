@@ -24,7 +24,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.3", "@babel/runtime@^7.6.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.16.3", "@babel/runtime@^7.6.2":
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
@@ -444,6 +444,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@next-auth/firebase-adapter@^0.1.2-pr.183-76202b42.8":
+  version "0.1.2-pr.183-76202b42.8"
+  resolved "https://registry.yarnpkg.com/@next-auth/firebase-adapter/-/firebase-adapter-0.1.2-pr.183-76202b42.8.tgz#8be37b990282c92a50ae16fd125c6bc5c29dbd5e"
+  integrity sha512-0zAPcY3YgTB0Od05hhfa1zFrpjOtvu2n/xHPFpk70ideCbxy5lXlojHNm+NRKwSeWx2nkwF3YqIEZVnsOaYnZA==
+
 "@next/env@12.1.0":
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-12.1.0.tgz#73713399399b34aa5a01771fb73272b55b22c314"
@@ -544,7 +549,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@panva/hkdf@^1.0.0":
+"@panva/hkdf@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@panva/hkdf/-/hkdf-1.0.1.tgz#ed0da773bd5f794d0603f5a5b5cee6d2354e5660"
   integrity sha512-mMyQ9vjpuFqePkfe5bZVIf/H3Dmk6wA8Kjxff9RcO4kqzJo+Ek9pGKwZHpeMr7Eku0QhLXMCd7fNCSnEnRMubg==
@@ -1785,10 +1790,15 @@ jiti@^1.12.9:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.12.15.tgz#8f6a141c06524ab32e05d5e3c9b33eeda54ae775"
   integrity sha512-/+K89y6KJA2nISbWrlc/773XdpDgSQq/LdQ+ZZyw2jRxUNyquPtbsDCCCMRzzNORUgroUGc4nAXxJEnQvpViCA==
 
-jose@^4.1.2, jose@^4.1.4:
+jose@^4.1.4:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/jose/-/jose-4.5.0.tgz#92829d8cf846351eb55aaaf94f252fb1d191f2d5"
   integrity sha512-GFcVFQwYQKbQTUOo2JlpFGXTkgBw26uzDsRMD2q1WgSKNSnpKS9Ug7bdQ8dS+p4sZHNH6iRPu6WK2jLIjspaMA==
+
+jose@^4.3.7:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-4.5.1.tgz#1531d491fafe567338fd517f118293cce27aa0aa"
+  integrity sha512-uhjuzZjKGKmi5DVJ/eghN8hJklLhwZRLRAaaG9MkkMAdfRYlHvZ10i4z/4WSN1hSTMffCet+k7iRHvbdGwmZPw==
 
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
@@ -1979,18 +1989,18 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-auth@^4.0.0-beta.7:
-  version "4.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.0.0-beta.7.tgz#220aea0c1afa35bd9fa0bfad9bf2e62e91772bf2"
-  integrity sha512-bPoLak4MfmgrcLLaf26tEQttKJPBcP3KAtSXSo2xMhoG+PLnP9gwFmqLwFUX+FvVRf/iwuAUZjPRAqRQ9g3GOw==
+next-auth@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.2.1.tgz#042e4858d9f67b4f702d3a55bae0d2f04db3cac3"
+  integrity sha512-XDtt7nqevkNf4EJ2zKAKkI+MFsURf11kx11vPwxrBYA1MHeqWwaWbGOUOI2ekNTvfAg4nTEJJUH3LV2cLrH3Tg==
   dependencies:
-    "@babel/runtime" "^7.15.4"
-    "@panva/hkdf" "^1.0.0"
+    "@babel/runtime" "^7.16.3"
+    "@panva/hkdf" "^1.0.1"
     cookie "^0.4.1"
-    jose "^4.1.2"
+    jose "^4.3.7"
     oauth "^0.9.15"
-    openid-client "^5.0.2"
-    preact "^10.5.14"
+    openid-client "^5.1.0"
+    preact "^10.6.3"
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
@@ -2023,6 +2033,11 @@ node-fetch@2.6.7:
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
   dependencies:
     whatwg-url "^5.0.0"
+
+nodemailer@^6.7.2:
+  version "6.7.2"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.2.tgz#44b2ad5f7ed71b7067f7a21c4fedabaec62b85e0"
+  integrity sha512-Dz7zVwlef4k5R71fdmxwR8Q39fiboGbu3xgswkzGwczUfjp873rVxt1O46+Fh0j1ORnAC6L9+heI8uUpO6DT7Q==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
@@ -2111,7 +2126,7 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-openid-client@^5.0.2:
+openid-client@^5.1.0:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-5.1.3.tgz#25ef0e48929f33462028001fd4077a7ae5b3ad4d"
   integrity sha512-i5quCXurPkN50ndRLE2D3Q6khz6AieJ0gTKOmsl3G4ZIP/Udf5Qw5CMRdhMvbFvfKRrkcCWPFXmduFUFYTC0xw==
@@ -2220,7 +2235,7 @@ preact-render-to-string@^5.1.19:
   dependencies:
     pretty-format "^3.8.0"
 
-preact@^10.5.14:
+preact@^10.6.3:
   version "10.6.6"
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.6.6.tgz#f1899bc8dab7c0788b858481532cb3b5d764a520"
   integrity sha512-dgxpTFV2vs4vizwKohYKkk7g7rmp1wOOcfd4Tz3IB3Wi+ivZzsn/SpeKJhRENSE+n8sUfsAl4S3HiCVT923ABw==

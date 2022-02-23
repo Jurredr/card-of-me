@@ -5,11 +5,10 @@ import { BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs'
 import NavBar from '../components/NavBar'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { db } from '../firebase'
+import { db } from '../src/firebase'
 import {
   collection,
   onSnapshot,
-  orderBy,
   query,
   QueryDocumentSnapshot,
   where
