@@ -1,6 +1,6 @@
-import { Button, Loading, StyledLink } from '@nextui-org/react'
+import { Button, StyledLink } from '@nextui-org/react'
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,6 +10,7 @@ import EmailField from '../components/auth/EmailField'
 import OAuthButtons from '../components/auth/OAuthButtons'
 import DividerText from '../components/DividerText'
 import LoadBasedButton from '../components/LoadBasedButton'
+import { getUserByEmail } from '../src/carduser'
 
 const SignIn: NextPage = () => {
   const router = useRouter()
@@ -30,12 +31,21 @@ const SignIn: NextPage = () => {
 
   const [submitLoading, setSubmitLoading] = useState(false)
 
-  const emailLogin = () => {
+  const emailLogin = async () => {
     if (!emailValid) return
     setSubmitLoading(true)
-    setTimeout(() => {
+    const user = await getUserByEmail(emailValue)
+    console.log(user)
+
+    // Exists = Sign them in
+    if (user) {
+      signIn('email', { email: emailValue })
+    }
+
+    // Send to sign up with email as preset
+    else {
       router.push(`/sign-up?email=${emailValue}`)
-    }, 1000)
+    }
   }
 
   return (

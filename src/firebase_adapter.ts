@@ -13,13 +13,10 @@ import {
   where
 } from 'firebase/firestore'
 import { Adapter } from 'next-auth/adapters'
+import { Accounts, Sessions, Users, VerificationTokens } from './firebase'
 
 /** @return { import("next-auth/adapters").Adapter } */
 export default function CustomFirebaseAdapter(db: Firestore): Adapter {
-  const Users = collection(db, 'users')
-  const Sessions = collection(db, 'sessions')
-  const Accounts = collection(db, 'accounts')
-  const VerificationTokens = collection(db, 'verification_tokens')
   return {
     // @ts-expect-error
     async createUser(user) {
@@ -135,6 +132,7 @@ export default function CustomFirebaseAdapter(db: Firestore): Adapter {
     },
     // @ts-expect-error
     async useVerificationToken({ identifier, token }) {
+      console.log(identifier, token)
       const verificationTokensQuery = query(
         VerificationTokens,
         where('identifier', '==', identifier),
