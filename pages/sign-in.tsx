@@ -10,7 +10,7 @@ import EmailField from '../components/auth/EmailField'
 import OAuthButtons from '../components/auth/OAuthButtons'
 import DividerText from '../components/DividerText'
 import LoadBasedButton from '../components/LoadBasedButton'
-import { getUserByEmail } from '../src/carduser'
+import { getUserByEmail } from '../src/userfetcher'
 
 const SignIn: NextPage = () => {
   const router = useRouter()

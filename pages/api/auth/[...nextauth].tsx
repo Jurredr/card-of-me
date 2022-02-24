@@ -28,13 +28,13 @@ export default NextAuth({
         .join('')
         .toLocaleLowerCase()
 
-      session.user.uid = token.sub
-
       return session
     },
 
     async signIn({ user, account, profile, email, credentials }) {
       console.log(user, account, profile, email, credentials)
+
+      // Change user here
       return true
     }
   },

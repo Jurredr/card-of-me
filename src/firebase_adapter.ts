@@ -1,6 +1,5 @@
 import {
   addDoc,
-  collection,
   deleteDoc,
   doc,
   Firestore,
@@ -23,20 +22,17 @@ export default function CustomFirebaseAdapter(db: Firestore): Adapter {
       const { id } = await addDoc(Users, user)
       return { ...user, id }
     },
-    // @ts-expect-error
     async getUser(id) {
       const userDoc = await getDoc(doc(Users, id))
       if (!userDoc.exists()) return null
       return Users.converter?.fromFirestore(userDoc)
     },
-    // @ts-expect-error
     async getUserByEmail(email) {
       const userQuery = query(Users, where('email', '==', email), limit(1))
       const userDocs = await getDocs(userQuery)
       if (userDocs.empty) return null
       return Users.converter?.fromFirestore(userDocs.docs[0])
     },
-    // @ts-expect-error
     async getUserByAccount({ providerAccountId, provider }) {
       const accountQuery = query(
         Accounts,
@@ -52,11 +48,9 @@ export default function CustomFirebaseAdapter(db: Firestore): Adapter {
       if (!userDoc.exists()) return null
       return Users.converter?.fromFirestore(userDoc)
     },
-    // @ts-expect-error
     async updateUser(user) {
       await updateDoc(doc(Users, user.id), user)
       const userDoc = await getDoc(doc(Users, user.id))
-      // @ts-expect-error
       return Users.converter?.fromFirestore(userDoc)
     },
     async deleteUser(userId) {
@@ -90,7 +84,6 @@ export default function CustomFirebaseAdapter(db: Firestore): Adapter {
       const { id } = await addDoc(Sessions, session)
       return { ...session, id }
     },
-    // @ts-expect-error
     async getSessionAndUser(sessionToken) {
       const sessionQuery = query(
         Sessions,
@@ -130,7 +123,6 @@ export default function CustomFirebaseAdapter(db: Firestore): Adapter {
       await addDoc(VerificationTokens, verificationToken)
       return verificationToken
     },
-    // @ts-expect-error
     async useVerificationToken({ identifier, token }) {
       console.log(identifier, token)
       const verificationTokensQuery = query(
