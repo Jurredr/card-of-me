@@ -1,7 +1,18 @@
 import { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { IoIosMail } from 'react-icons/io'
 
 const Activate: NextPage = () => {
+  const router = useRouter()
+
+  // Session re-routing
+
+  const { data: session } = useSession()
+  if (session?.user) {
+    router.push('/')
+  }
+
   return (
     <div className="w-full h-full grid grid-cols-2 items-center justify-center">
       {/* Left */}
