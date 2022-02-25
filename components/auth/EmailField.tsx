@@ -5,18 +5,33 @@ interface Props {
   initialValue?: string
   validCallback?: Dispatch<SetStateAction<boolean>>
   valueCallback?: Dispatch<SetStateAction<string>>
+  submitted: boolean
 }
 
 const EmailField: React.FC<Props> = (props) => {
   const [emailValid, setEmailValid] = useState(false)
+  const [showFillerDiv, setShowFillerDiv] = useState(false)
 
   const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
-    if (!value)
+    console.log(!value)
+    // Submitted error check
+    if (props.submitted && !value) {
+      setShowFillerDiv(true)
+      return {
+        color: 'error',
+        text: 'Please enter a valid email address'
+      }
+    }
+
+    if (!value) {
+      setShowFillerDiv(false)
       return {
         color: '',
         text: ''
       }
+    }
+
     const isValid: RegExpMatchArray | null = String(value)
       .toLowerCase()
       .match(
@@ -26,6 +41,7 @@ const EmailField: React.FC<Props> = (props) => {
     // Set validity
     setEmailValid(isValid !== null ? (isValid ? true : false) : false)
     if (props.validCallback) props.validCallback(emailValid)
+    setShowFillerDiv(!isValid)
 
     return {
       color: isValid ? '' : 'error',
@@ -53,7 +69,7 @@ const EmailField: React.FC<Props> = (props) => {
         placeholder="Email"
         type="email"
       />
-      {!emailValid && value && <div></div>}
+      {showFillerDiv && <div></div>}
     </>
   )
 }

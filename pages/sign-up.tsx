@@ -28,9 +28,11 @@ const SignUp: NextPage = () => {
 
   // Submit handling
 
+  const [submittedClicked, setSubmittedClicked] = useState(false)
   const [submitLoading, setSubmitLoading] = useState(false)
 
   const emailSignUp = () => {
+    setSubmittedClicked(true)
     if (!emailValid) return
     setSubmitLoading(true)
     setTimeout(() => {
@@ -95,6 +97,7 @@ const SignUp: NextPage = () => {
             <EmailField
               initialValue={email ? String(email) : ''}
               validCallback={setEmailValid}
+              submitted={submittedClicked}
             />
 
             {/* Full name */}
