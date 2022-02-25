@@ -78,7 +78,7 @@ const SignUp: NextPage = () => {
           {/* Buttons */}
           <div className="mt-5 w-full flex flex-col gap-4 justify-center items-center">
             {/* OAuth */}
-            <OAuthButtons />
+            <OAuthButtons textPrefix="Sign up with " />
 
             {/* Or */}
             <DividerText text="or" />

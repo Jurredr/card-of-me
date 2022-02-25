@@ -5,7 +5,11 @@ import { ClientSafeProvider, LiteralUnion } from 'next-auth/react/types'
 import { useEffect, useState } from 'react'
 import { BsGoogle } from 'react-icons/bs'
 
-const OAuthButtons: React.FC = () => {
+interface Props {
+  textPrefix?: string
+}
+
+const OAuthButtons: React.FC<Props> = (props) => {
   const [authLoading, setAuthLoading] = useState(true)
   const [authProviders, setAuthProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
@@ -45,7 +49,9 @@ const OAuthButtons: React.FC = () => {
             >
               <div className="flex items-center justify-center gap-2 w-full">
                 <BsGoogle />
-                Continue with {provider.name}
+                {props.textPrefix
+                  ? props.textPrefix + provider.name
+                  : 'Continue with ' + provider.name}
               </div>
             </Button>
           )
