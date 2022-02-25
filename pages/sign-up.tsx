@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
 import EmailField from '../components/auth/EmailField'
 import OAuthButtons from '../components/auth/OAuthButtons'
+import UsernameField from '../components/auth/UsernameField'
 import DividerText from '../components/DividerText'
 import LoadBasedButton from '../components/LoadBasedButton'
 
@@ -24,6 +25,7 @@ const SignUp: NextPage = () => {
 
   // Input handling
 
+  const [usernameValid, setUsernameValid] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
 
   // Submit handling
@@ -33,6 +35,7 @@ const SignUp: NextPage = () => {
 
   const emailSignUp = () => {
     setSubmittedClicked(true)
+    if (!usernameValid) return
     if (!emailValid) return
     setSubmitLoading(true)
     setTimeout(() => {
@@ -86,11 +89,9 @@ const SignUp: NextPage = () => {
             <DividerText text="or" />
 
             {/* Username */}
-            <Input
-              labelLeft="@"
-              width="100%"
-              placeholder="Username"
-              type="text"
+            <UsernameField
+              validCallback={setUsernameValid}
+              submitted={submittedClicked}
             />
 
             {/* Email */}
