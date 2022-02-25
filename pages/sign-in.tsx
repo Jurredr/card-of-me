@@ -29,9 +29,11 @@ const SignIn: NextPage = () => {
 
   // Submit handling
 
+  const [submittedClicked, setSubmittedClicked] = useState(false)
   const [submitLoading, setSubmitLoading] = useState(false)
 
   const emailLogin = async () => {
+    setSubmittedClicked(true)
     if (!emailValid) return
     setSubmitLoading(true)
     const user = await getUserByEmail(emailValue)
@@ -97,6 +99,7 @@ const SignIn: NextPage = () => {
             <EmailField
               validCallback={setEmailValid}
               valueCallback={setEmailValue}
+              submitted={submittedClicked}
             />
 
             {/* Submit */}
