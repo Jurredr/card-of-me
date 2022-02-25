@@ -1,4 +1,4 @@
-import { Avatar, Tooltip } from '@nextui-org/react'
+import { Avatar, Loading, Tooltip } from '@nextui-org/react'
 import type { NextPage } from 'next'
 import { FiEdit2 } from 'react-icons/fi'
 import { BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs'
@@ -39,7 +39,9 @@ const User: NextPage = () => {
       <NavBar />
 
       {loading && (
-        <p className="mt-50 flex justify-center items-center">Loading...</p>
+        <p className="mt-50 flex justify-center items-center">
+          <Loading size="lg" type="gradient" />
+        </p>
       )}
 
       {!loading && (
