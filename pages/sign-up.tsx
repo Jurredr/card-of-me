@@ -27,6 +27,7 @@ const SignUp: NextPage = () => {
 
   const [usernameValid, setUsernameValid] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
+  const [termsChecked, setTermsChecked] = useState(false)
 
   // Submit handling
 
@@ -37,6 +38,7 @@ const SignUp: NextPage = () => {
     setSubmittedClicked(true)
     if (!usernameValid) return
     if (!emailValid) return
+    if (!termsChecked) return
     setSubmitLoading(true)
     setTimeout(() => {
       router.push('/')
@@ -108,7 +110,15 @@ const SignUp: NextPage = () => {
             </div>
 
             {/* TOS / privacy */}
-            <Checkbox className="my-2" checked={false}>
+            <Checkbox
+              className={`my-2${
+                !termsChecked && submittedClicked ? ' checkbox-error' : ''
+              }`}
+              labelColor={
+                !termsChecked && submittedClicked ? 'error' : 'default'
+              }
+              onChange={(e) => setTermsChecked(e.target.checked)}
+            >
               <p className="font-normal tracking-normal text-xs whitespace-nowrap">
                 I agree to the{' '}
                 <Link href="/tos" passHref>

@@ -4,6 +4,10 @@
   // font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
+.checkbox-error div:before {
+  border: var(--nextui-borderWeights-normal) solid var(--nextui-colors-error) !important;
+}
+
 .montserrat {
   font-family: 'Montserrat' !important;
 }
