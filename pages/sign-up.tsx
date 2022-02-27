@@ -31,11 +31,19 @@ const SignUp: NextPage = () => {
 
   // Submit handling
 
-  const [submittedClicked, setSubmittedClicked] = useState(false)
+  const [submittedClicked, setSubmittedClicked] = useState({
+    username: false,
+    email: false,
+    terms: false
+  })
   const [submitLoading, setSubmitLoading] = useState(false)
 
   const emailSignUp = () => {
-    setSubmittedClicked(true)
+    setSubmittedClicked({
+      username: true,
+      email: true,
+      terms: true
+    })
     if (!usernameValid) return
     if (!emailValid) return
     if (!termsChecked) return
@@ -93,14 +101,26 @@ const SignUp: NextPage = () => {
             {/* Username */}
             <UsernameField
               validCallback={setUsernameValid}
-              submitted={submittedClicked}
+              submitted={submittedClicked.username}
+              unsubmit={() =>
+                setSubmittedClicked({
+                  ...submittedClicked,
+                  username: false
+                })
+              }
             />
 
             {/* Email */}
             <EmailField
               initialValue={email ? String(email) : ''}
               validCallback={setEmailValid}
-              submitted={submittedClicked}
+              submitted={submittedClicked.email}
+              unsubmit={() =>
+                setSubmittedClicked({
+                  ...submittedClicked,
+                  email: false
+                })
+              }
             />
 
             {/* Full name */}
@@ -112,12 +132,20 @@ const SignUp: NextPage = () => {
             {/* TOS / privacy */}
             <Checkbox
               className={`my-2${
-                !termsChecked && submittedClicked ? ' checkbox-error' : ''
+                !termsChecked && submittedClicked.terms ? ' checkbox-error' : ''
               }`}
               labelColor={
-                !termsChecked && submittedClicked ? 'error' : 'default'
+                !termsChecked && submittedClicked.terms ? 'error' : 'default'
               }
-              onChange={(e) => setTermsChecked(e.target.checked)}
+              onChange={(e) => {
+                setTermsChecked(e.target.checked)
+                if (submittedClicked.terms) {
+                  setSubmittedClicked({
+                    ...submittedClicked,
+                    terms: false
+                  })
+                }
+              }}
             >
               <p className="font-normal tracking-normal text-xs whitespace-nowrap">
                 I agree to the{' '}

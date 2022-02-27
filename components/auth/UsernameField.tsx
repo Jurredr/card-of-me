@@ -6,6 +6,7 @@ interface Props {
   validCallback?: Dispatch<SetStateAction<boolean>>
   valueCallback?: Dispatch<SetStateAction<string>>
   submitted: boolean
+  unsubmit: Function
 }
 
 const UsernameField: React.FC<Props> = (props) => {
@@ -14,7 +15,6 @@ const UsernameField: React.FC<Props> = (props) => {
 
   const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
-    console.log(!value)
     // Submitted error check
     if (props.submitted && !value) {
       setShowFillerDiv(true)
@@ -23,6 +23,8 @@ const UsernameField: React.FC<Props> = (props) => {
         color: 'error',
         text: 'Please enter a valid username'
       }
+    } else if (props.submitted && value) {
+      props.unsubmit()
     }
 
     if (!value) {

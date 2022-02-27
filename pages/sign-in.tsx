@@ -100,6 +100,7 @@ const SignIn: NextPage = () => {
               validCallback={setEmailValid}
               valueCallback={setEmailValue}
               submitted={submittedClicked}
+              unsubmit={() => setSubmittedClicked(false)}
             />
 
             {/* Submit */}
