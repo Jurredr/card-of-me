@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
 import EmailField from '../components/auth/EmailField'
+import NameField from '../components/auth/NameField'
 import OAuthButtons from '../components/auth/OAuthButtons'
 import UsernameField from '../components/auth/UsernameField'
 import DividerText from '../components/DividerText'
@@ -27,6 +28,8 @@ const SignUp: NextPage = () => {
 
   const [usernameValid, setUsernameValid] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
+  const [firstNameValid, setFirstNameValid] = useState(false)
+  const [lastNameValid, setLastNameValid] = useState(false)
   const [termsChecked, setTermsChecked] = useState(false)
 
   // Submit handling
@@ -34,6 +37,8 @@ const SignUp: NextPage = () => {
   const [submittedClicked, setSubmittedClicked] = useState({
     username: false,
     email: false,
+    firstName: false,
+    lastName: false,
     terms: false
   })
   const [submitLoading, setSubmitLoading] = useState(false)
@@ -41,11 +46,15 @@ const SignUp: NextPage = () => {
   const emailSignUp = () => {
     setSubmittedClicked({
       username: true,
+      firstName: true,
+      lastName: true,
       email: true,
       terms: true
     })
     if (!usernameValid) return
     if (!emailValid) return
+    if (!firstNameValid) return
+    if (!lastNameValid) return
     if (!termsChecked) return
     setSubmitLoading(true)
     setTimeout(() => {
@@ -125,8 +134,32 @@ const SignUp: NextPage = () => {
 
             {/* Full name */}
             <div className="flex gap-3">
-              <Input width="100%" placeholder="First name" type="text" />
-              <Input width="100%" placeholder="Last name" type="text" />
+              <div>
+                <NameField
+                  placeholder="First name"
+                  validCallback={setFirstNameValid}
+                  submitted={submittedClicked.firstName}
+                  unsubmit={() =>
+                    setSubmittedClicked({
+                      ...submittedClicked,
+                      firstName: false
+                    })
+                  }
+                />
+              </div>
+              <div>
+                <NameField
+                  placeholder="Last name"
+                  validCallback={setLastNameValid}
+                  submitted={submittedClicked.lastName}
+                  unsubmit={() =>
+                    setSubmittedClicked({
+                      ...submittedClicked,
+                      lastName: false
+                    })
+                  }
+                />
+              </div>
             </div>
 
             {/* TOS / privacy */}
