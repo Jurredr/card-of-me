@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   initialValue?: string
+  placeholder?: string
   validCallback?: Dispatch<SetStateAction<boolean>>
   valueCallback?: Dispatch<SetStateAction<string>>
   submitted: boolean
@@ -68,7 +69,7 @@ const EmailField: React.FC<Props> = (props) => {
         helperColor={helper.color}
         helperText={helper.text}
         width="100%"
-        placeholder="Email"
+        placeholder={props.placeholder ? props.placeholder : 'Email'}
         type="email"
       />
       {showFillerDiv && <div></div>}
