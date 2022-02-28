@@ -6,10 +6,8 @@
       <stop offset="1" stop-color="#b84ef0"/>
     </linearGradient>
   </defs>
-  <g id="Group_10" data-name="Group 10" transform="translate(-292 -442)">
+  <g id="Group_13" data-name="Group 13" transform="translate(-292 -442)">
     <path id="Path_7" data-name="Path 7" d="M10,0H41A10,10,0,0,1,51,10V41A10,10,0,0,1,41,51H10A10,10,0,0,1,0,41V10A10,10,0,0,1,10,0Z" transform="translate(292 442)" fill="url(#linear-gradient)"/>
-    <text id="C" transform="translate(303 481)" fill="#fff" font-size="38" font-family="Montserrat-SemiBold, Montserrat" font-weight="600">
-      <tspan x="0" y="0">C</tspan>
-    </text>
+    <path id="Path_8" data-name="Path 8" d="M15.884.38A13.5,13.5,0,0,0,26.448-4.066l-3.192-3.04A9.248,9.248,0,0,1,16.15-3.952,9.081,9.081,0,0,1,6.65-13.3a9.081,9.081,0,0,1,9.5-9.348,9.341,9.341,0,0,1,7.106,3.116l3.192-3A13.475,13.475,0,0,0,15.922-26.98c-8.17,0-14.25,5.738-14.25,13.68S7.752.38,15.884.38Z" transform="translate(303 481)" fill="#fff"/>
   </g>
 </svg>
