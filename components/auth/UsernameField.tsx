@@ -46,7 +46,9 @@ const UsernameField: React.FC<Props> = (props) => {
     return {
       statuscolor: isValid ? 'default' : 'error',
       color: isValid ? 'success' : 'error',
-      text: isValid ? `Looking good ${value}!` : 'Please enter a valid username'
+      text: isValid
+        ? `Looking good @${value}!`
+        : 'Username should be 16 characters or less'
     }
   }, [usernameValid, props, value])
 
