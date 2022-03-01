@@ -22,6 +22,21 @@ export default NextAuth({
 
   // The callbacks
   callbacks: {
+    async jwt({ token, user, account, profile, isNewUser }) {
+      // Persist the OAuth access_token to the token right after signin
+      if (account) {
+        token.accessToken = account.access_token
+      }
+      if (user) {
+        // Add a new prop on token for user data
+        token.data = user
+      }
+      return token
+    },
+    async session({ session, user, token }) {
+      session.user = user
+      return session
+    },
     async signIn({ user, account, profile, email, credentials }) {
       console.log(user, account, profile, email, credentials)
 
@@ -29,32 +44,6 @@ export default NextAuth({
       // user.username =
       return true
     }
-    // async signIn(params) {
-    //   console.log(params)
-
-    //   const user = params.user
-    //   const profile = params.profile
-
-    //   // Change user here
-    //   params.user = {
-    //     username: user.username,
-    //     id: user.id,
-    //     email: user.email,
-    //     name: {
-    //       firstName: '',
-    //       lastName: ''
-    //     },
-    //     avatar: null,
-    //     card: []
-    //   }
-
-    //   if (profile) {
-    //     params.user.name.firstName = profile.given_name
-    //     params.user.name.lastName = profile.family_name
-    //     params.user.avatar = profile.picture
-    //   }
-    //   return true
-    // }
   },
 
   secret: process.env.JWT_SECRET,
