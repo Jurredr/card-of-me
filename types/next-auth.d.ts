@@ -7,6 +7,7 @@ declare module 'next-auth' {
    */
   interface Session {
     user: User
+    expires: string
   }
 
   /**
@@ -22,7 +23,6 @@ declare module 'next-auth' {
       lastName: string
     }
     image: string | null | undefined
-    card: []
   }
 
   /**
