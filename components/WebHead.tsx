@@ -4,7 +4,7 @@ const WebHead: React.FC = () => {
   return (
     <Head>
       {/* Base configuration */}
-      <title>CardOf.Me | All Your Socials, One Card</title>
+      <title>CardOf.Me - All Your Socials, One Card</title>
       <link rel="icon" href="/favicon.ico" />
 
       {/* SEO configuration */}
@@ -30,7 +30,7 @@ const WebHead: React.FC = () => {
       {/* OpenGraph tags */}
       <meta
         property="og:title"
-        content="CardOf.Me | All Your Socials, One Card"
+        content="CardOf.Me - All Your Socials, One Card"
       />
       <meta property="og:type" content="website" />
       <meta
