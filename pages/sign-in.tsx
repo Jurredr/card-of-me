@@ -25,7 +25,7 @@ const SignIn: NextPage = () => {
   // Input handling
 
   const [emailValid, setEmailValid] = useState(false)
-  const [emailValue, setEmailValue] = useState('')
+  const [emailValue, setEmailValue] = useState<string | null>(null)
 
   // Submit handling
 
@@ -34,7 +34,7 @@ const SignIn: NextPage = () => {
 
   const emailLogin = async () => {
     setSubmittedClicked(true)
-    if (!emailValid) return
+    if (!emailValid || !emailValue) return
     setSubmitLoading(true)
     const user = await getUserByEmail(emailValue)
     console.log(user)
