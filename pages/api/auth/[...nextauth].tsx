@@ -22,21 +22,39 @@ export default NextAuth({
 
   // The callbacks
   callbacks: {
-    async session({ session, token }) {
-      session.user.username = session.user.name
-        .split(' ')
-        .join('')
-        .toLocaleLowerCase()
-
-      return session
-    },
-
     async signIn({ user, account, profile, email, credentials }) {
       console.log(user, account, profile, email, credentials)
 
       // Change user here
+      // user.username =
       return true
     }
+    // async signIn(params) {
+    //   console.log(params)
+
+    //   const user = params.user
+    //   const profile = params.profile
+
+    //   // Change user here
+    //   params.user = {
+    //     username: user.username,
+    //     id: user.id,
+    //     email: user.email,
+    //     name: {
+    //       firstName: '',
+    //       lastName: ''
+    //     },
+    //     avatar: null,
+    //     card: []
+    //   }
+
+    //   if (profile) {
+    //     params.user.name.firstName = profile.given_name
+    //     params.user.name.lastName = profile.family_name
+    //     params.user.avatar = profile.picture
+    //   }
+    //   return true
+    // }
   },
 
   secret: process.env.JWT_SECRET,

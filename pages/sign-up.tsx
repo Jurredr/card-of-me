@@ -1,6 +1,6 @@
-import { Button, Checkbox, Input, StyledLink } from '@nextui-org/react'
+import { Button, Checkbox, StyledLink } from '@nextui-org/react'
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -12,6 +12,7 @@ import OAuthButtons from '../components/auth/OAuthButtons'
 import UsernameField from '../components/auth/UsernameField'
 import DividerText from '../components/DividerText'
 import LoadBasedButton from '../components/LoadBasedButton'
+import { createUser } from '../src/userfetcher'
 
 const SignUp: NextPage = () => {
   const router = useRouter()
@@ -24,7 +25,14 @@ const SignUp: NextPage = () => {
     router.push('/')
   }
 
-  // Input handling
+  // Input value handling
+
+  const [usernameValue, setUsernameValue] = useState<string | null>(null)
+  const [emailValue, setEmailValue] = useState<string | null>(null)
+  const [firstNameValue, setFirstNameValue] = useState<string | null>(null)
+  const [lastNameValue, setLastNameValue] = useState<string | null>(null)
+
+  // Input validity handling
 
   const [usernameValid, setUsernameValid] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
@@ -56,10 +64,23 @@ const SignUp: NextPage = () => {
     if (!firstNameValid) return
     if (!lastNameValid) return
     if (!termsChecked) return
+    if (!usernameValue || !emailValue || !firstNameValue || !lastNameValue)
+      return
     setSubmitLoading(true)
-    setTimeout(() => {
-      router.push('/')
-    }, 1000)
+
+    // Create the user
+    createUser({
+      id: '',
+      username: usernameValue,
+      email: emailValue,
+      name: {
+        firstName: firstNameValue,
+        lastName: lastNameValue
+      },
+      image: null,
+      card: []
+    })
+    signIn('email', { email: emailValue })
   }
 
   return (
@@ -110,6 +131,7 @@ const SignUp: NextPage = () => {
             {/* Username */}
             <UsernameField
               validCallback={setUsernameValid}
+              valueCallback={setUsernameValue}
               submitted={submittedClicked.username}
               unsubmit={() =>
                 setSubmittedClicked({
@@ -123,6 +145,7 @@ const SignUp: NextPage = () => {
             <EmailField
               initialValue={email ? String(email) : ''}
               validCallback={setEmailValid}
+              valueCallback={setEmailValue}
               submitted={submittedClicked.email}
               unsubmit={() =>
                 setSubmittedClicked({
@@ -138,6 +161,7 @@ const SignUp: NextPage = () => {
                 <NameField
                   placeholder="First name"
                   validCallback={setFirstNameValid}
+                  valueCallback={setFirstNameValue}
                   submitted={submittedClicked.firstName}
                   unsubmit={() =>
                     setSubmittedClicked({
@@ -151,6 +175,7 @@ const SignUp: NextPage = () => {
                 <NameField
                   placeholder="Last name"
                   validCallback={setLastNameValid}
+                  valueCallback={setLastNameValue}
                   submitted={submittedClicked.lastName}
                   unsubmit={() =>
                     setSubmittedClicked({

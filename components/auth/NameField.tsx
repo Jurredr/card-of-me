@@ -5,7 +5,7 @@ interface Props {
   initialValue?: string
   placeholder?: string
   validCallback?: Dispatch<SetStateAction<boolean>>
-  valueCallback?: Dispatch<SetStateAction<string>>
+  valueCallback?: Dispatch<SetStateAction<string | null>>
   submitted: boolean
   unsubmit: Function
 }

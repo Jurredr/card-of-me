@@ -1,4 +1,5 @@
-import { getDocs, limit, query, where } from 'firebase/firestore'
+import { addDoc, getDocs, limit, query, where } from 'firebase/firestore'
+import { User } from 'next-auth'
 import { Users } from './firebase'
 
 export async function getUserByEmail(email: string) {
@@ -19,4 +20,9 @@ export async function getUserByUsername(username: string) {
   })
   if (userDocs.empty) return null
   return userDocs.docs[0]
+}
+
+export async function createUser(user: User) {
+  const { id } = await addDoc(Users, user)
+  return { ...user, id }
 }
