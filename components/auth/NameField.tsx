@@ -37,17 +37,44 @@ const NameField: React.FC<Props> = (props) => {
       }
     }
 
-    const isValid = String(value).length <= 50
+    // Check length validity
+    const isLengthValid =
+      String(value).length >= 1 && String(value).length <= 50
+    if (isLengthValid === null || !isLengthValid) {
+      setNameValid(false)
+      setShowFillerDiv(true)
+      if (props.validCallback) props.validCallback(nameValid)
 
-    // Set validity
-    setNameValid(isValid !== null ? (isValid ? true : false) : false)
+      return {
+        statuscolor: 'error',
+        color: 'error',
+        text: 'Too long (max 16 characters)'
+      }
+    }
+
+    // Check content validity
+    const isContentValid = /^[a-zA-Z-]+$/.exec(String(value))
+    if (isContentValid === null || !isContentValid) {
+      setNameValid(false)
+      setShowFillerDiv(true)
+      if (props.validCallback) props.validCallback(nameValid)
+
+      return {
+        statuscolor: 'error',
+        color: 'error',
+        text: 'Please use letters and dashes (-)'
+      }
+    }
+
+    // Name is valid at this point
+    setShowFillerDiv(false)
+    setNameValid(true)
     if (props.validCallback) props.validCallback(nameValid)
-    setShowFillerDiv(!isValid)
 
     return {
-      statuscolor: isValid ? 'default' : 'error',
-      color: isValid ? 'success' : 'error',
-      text: isValid ? '' : 'Too long (max 50 characters)'
+      statuscolor: 'default',
+      color: 'success',
+      text: ''
     }
   }, [nameValid, props, value])
 
