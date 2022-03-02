@@ -71,7 +71,7 @@ const SignUp: NextPage = () => {
     // Create the user
     createUser({
       id: '',
-      username: usernameValue,
+      username: usernameValue.toLowerCase(),
       email: emailValue,
       name: {
         firstName: firstNameValue,
