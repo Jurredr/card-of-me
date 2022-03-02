@@ -74,8 +74,8 @@ const SignUp: NextPage = () => {
       username: usernameValue.toLowerCase(),
       email: emailValue,
       name: {
-        firstName: firstNameValue,
-        lastName: lastNameValue
+        firstName: firstNameValue.trim(),
+        lastName: lastNameValue.trim()
       },
       image: null,
       card: []

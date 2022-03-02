@@ -53,8 +53,10 @@ const NameField: React.FC<Props> = (props) => {
     }
 
     // Check content validity
-    const isContentValid = /^[a-zA-Z-]+$/.exec(String(value))
-    if (isContentValid === null || !isContentValid) {
+    const isContentInvalid = /.*[0-9@\/*^$#%@()_+=|\[\]{}?!~`<>].*/gm.exec(
+      String(value)
+    )
+    if (isContentInvalid !== null && isContentInvalid) {
       setNameValid(false)
       setShowFillerDiv(true)
       if (props.validCallback) props.validCallback(nameValid)
