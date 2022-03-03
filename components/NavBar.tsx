@@ -1,4 +1,4 @@
-import { Avatar, Button, Input } from '@nextui-org/react'
+import { Avatar, Button, Input, Loading } from '@nextui-org/react'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -62,8 +62,15 @@ const NavBar: React.FC = () => {
           </>
         )}
 
+        {/* Loading session */}
+        {!session && session === undefined && (
+          <div className="flex justify-center items-center gap-6">
+            <Loading type="gradient" />
+          </div>
+        )}
+
         {/* Not signed in */}
-        {!session && (
+        {!session && session !== undefined && (
           <div className="flex justify-center items-center gap-6">
             <Link href="/sign-in" passHref>
               <div className="flex justify-center items-center gap-2 transition-all hover:gap-[0.35rem] hover:ml-[0.15rem] cursor-pointer whitespace-nowrap">
