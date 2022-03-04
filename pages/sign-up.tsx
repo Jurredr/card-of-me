@@ -111,14 +111,14 @@ const SignUp: NextPage = () => {
             draggable={false}
           />
           <p className="text-3xl font-semibold mt-2">Create Account</p>
-          <p className="mt-2">
+          <div className="mt-2">
             <p className="tracking-normal">
               Already have an account?{' '}
               <Link href="/sign-in" passHref>
                 <StyledLink underline>Sign in</StyledLink>
               </Link>
             </p>
-          </p>
+          </div>
 
           {/* Buttons */}
           <div className="mt-5 w-full flex flex-col gap-4 justify-center items-center">
