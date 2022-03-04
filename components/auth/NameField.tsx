@@ -44,7 +44,6 @@ const NameField: React.FC<Props> = (props) => {
     if (isLengthValid === null || !isLengthValid) {
       setNameValid(false)
       setShowFillerDiv(true)
-      if (props.validCallback) props.validCallback(nameValid)
 
       return {
         statuscolor: 'error',
@@ -60,7 +59,6 @@ const NameField: React.FC<Props> = (props) => {
     if (isContentInvalid !== null && isContentInvalid) {
       setNameValid(false)
       setShowFillerDiv(true)
-      if (props.validCallback) props.validCallback(nameValid)
 
       return {
         statuscolor: 'error',
@@ -72,7 +70,6 @@ const NameField: React.FC<Props> = (props) => {
     // Name is valid at this point
     setShowFillerDiv(false)
     setNameValid(true)
-    if (props.validCallback) props.validCallback(nameValid)
 
     return {
       statuscolor: 'default',
@@ -85,6 +82,11 @@ const NameField: React.FC<Props> = (props) => {
   useEffect(() => {
     if (props.valueCallback) props.valueCallback(value)
   }, [props, value])
+
+  // Call valid callback when valid changes
+  useEffect(() => {
+    if (props.validCallback) props.validCallback(nameValid)
+  }, [props, nameValid])
 
   return (
     <>
