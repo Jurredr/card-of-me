@@ -31,6 +31,7 @@ const NavBar: React.FC = () => {
 
       {/* Search */}
       <Input
+        aria-label="Search"
         bordered
         labelLeft="@"
         placeholder="Search..."

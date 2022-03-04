@@ -89,6 +89,7 @@ const NameField: React.FC<Props> = (props) => {
     <>
       <Input
         {...bindings}
+        aria-label={props.placeholder ? props.placeholder : 'Name'}
         // @ts-ignore
         status={helper.statuscolor}
         // @ts-ignore

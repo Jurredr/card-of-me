@@ -89,6 +89,7 @@ const UsernameField: React.FC<Props> = (props) => {
     <>
       <Input
         {...bindings}
+        aria-label="Username"
         // @ts-ignore
         status={helper.statuscolor}
         // @ts-ignore

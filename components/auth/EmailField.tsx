@@ -61,6 +61,7 @@ const EmailField: React.FC<Props> = (props) => {
     <>
       <Input
         {...bindings}
+        aria-label="Email"
         // @ts-ignore
         status={helper.color}
         // @ts-ignore
