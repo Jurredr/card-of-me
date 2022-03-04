@@ -98,8 +98,8 @@ const SignIn: NextPage = () => {
             {/* Email */}
             <EmailField
               id="sign-in-email-field"
-              validCallback={setEmailValid}
-              valueCallback={setEmailValue}
+              validCallback={(valid) => setEmailValid(valid)}
+              valueCallback={(value) => setEmailValue(value)}
               submitted={submittedClicked}
               unsubmit={() => setSubmittedClicked(false)}
             />
@@ -108,7 +108,7 @@ const SignIn: NextPage = () => {
             <LoadBasedButton
               text="Sign in"
               loading={submitLoading}
-              onClick={emailLogin}
+              onClick={() => emailLogin()}
             />
           </div>
         </div>

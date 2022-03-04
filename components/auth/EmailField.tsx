@@ -1,19 +1,19 @@
 import { Input, useInput } from '@nextui-org/react'
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface Props {
   initialValue?: string
   placeholder?: string
-  validCallback?: Dispatch<SetStateAction<boolean>>
-  valueCallback?: Dispatch<SetStateAction<string | null>>
+  validCallback?: (valid: boolean) => void
+  valueCallback?: (value: string) => void
   id: string
   submitted: boolean
-  unsubmit: Function
+  unsubmit: () => void
 }
 
 const EmailField: React.FC<Props> = (props) => {
-  const [emailValid, setEmailValid] = useState(false)
   const [showFillerDiv, setShowFillerDiv] = useState(false)
+  const [emailValid, setEmailValid] = useState(false)
 
   const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
@@ -41,22 +41,26 @@ const EmailField: React.FC<Props> = (props) => {
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       )
+    setEmailValid(!isValid ? false : true)
 
     // Set validity
-    setEmailValid(isValid !== null ? (isValid ? true : false) : false)
-    if (props.validCallback) props.validCallback(emailValid)
     setShowFillerDiv(!isValid)
 
     return {
       color: isValid ? '' : 'error',
       text: isValid ? '' : 'Please enter a valid email address'
     }
-  }, [emailValid, props, value])
+  }, [props, value])
 
   // Call value callback when value changes
   useEffect(() => {
     if (props.valueCallback) props.valueCallback(value)
   }, [props, value])
+
+  // Call value callback when valid changes
+  useEffect(() => {
+    if (props.validCallback) props.validCallback(emailValid)
+  }, [props, emailValid])
 
   return (
     <>

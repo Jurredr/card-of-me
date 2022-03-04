@@ -131,8 +131,8 @@ const SignUp: NextPage = () => {
             {/* Username */}
             <UsernameField
               id="sign-up-username-field"
-              validCallback={setUsernameValid}
-              valueCallback={setUsernameValue}
+              validCallback={(valid) => setUsernameValid(valid)}
+              valueCallback={(value) => setUsernameValue(value)}
               submitted={submittedClicked.username}
               unsubmit={() =>
                 setSubmittedClicked({
@@ -146,8 +146,8 @@ const SignUp: NextPage = () => {
             <EmailField
               id="sign-up-email-field"
               initialValue={email ? String(email) : ''}
-              validCallback={setEmailValid}
-              valueCallback={setEmailValue}
+              validCallback={(valid) => setEmailValid(valid)}
+              valueCallback={(value) => setEmailValue(value)}
               submitted={submittedClicked.email}
               unsubmit={() =>
                 setSubmittedClicked({
@@ -163,8 +163,8 @@ const SignUp: NextPage = () => {
                 <NameField
                   id="sign-up-firstname-field"
                   placeholder="First name"
-                  validCallback={setFirstNameValid}
-                  valueCallback={setFirstNameValue}
+                  validCallback={(valid) => setFirstNameValid(valid)}
+                  valueCallback={(value) => setFirstNameValue(value)}
                   submitted={submittedClicked.firstName}
                   unsubmit={() =>
                     setSubmittedClicked({
@@ -178,8 +178,8 @@ const SignUp: NextPage = () => {
                 <NameField
                   id="sign-up-lastname-field"
                   placeholder="Last name"
-                  validCallback={setLastNameValid}
-                  valueCallback={setLastNameValue}
+                  validCallback={(valid) => setLastNameValid(valid)}
+                  valueCallback={(value) => setLastNameValue(value)}
                   submitted={submittedClicked.lastName}
                   unsubmit={() =>
                     setSubmittedClicked({
@@ -225,7 +225,7 @@ const SignUp: NextPage = () => {
             <LoadBasedButton
               text="Sign up with email"
               loading={submitLoading}
-              onClick={emailSignUp}
+              onClick={() => emailSignUp()}
             />
           </div>
         </div>
