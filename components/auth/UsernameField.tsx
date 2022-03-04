@@ -103,7 +103,7 @@ const UsernameField: React.FC<Props> = (props) => {
     return {
       statuscolor: 'default',
       color: 'success',
-      text: `Looking good @${value}!`
+      text: `Looking good @${value.toLowerCase()}!`
     }
   }, [props, value, usernameTaken])
 
@@ -136,6 +136,7 @@ const UsernameField: React.FC<Props> = (props) => {
         labelLeft="@"
         placeholder={props.placeholder ? props.placeholder : 'Username'}
         type="text"
+        className="username-field"
       />
       {showFillerDiv && <div></div>}
     </>
