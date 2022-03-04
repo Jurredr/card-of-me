@@ -5,7 +5,7 @@ import 'windi.css'
 import '../styles/globals.scss'
 import '@fontsource/montserrat'
 import WebHead from '../components/WebHead'
-import { SSRProvider } from 'react-aria'
+import { SSRProvider } from '@react-aria/ssr'
 
 // NextUI theme
 const theme = createTheme({

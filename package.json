@@ -12,6 +12,7 @@
     "dependencies": {
         "@fontsource/montserrat": "^4.5.5",
         "@nextui-org/react": "^1.0.2-beta.4",
+        "@react-aria/ssr": "^3.1.2",
         "firebase": "^9.6.7",
         "next": "12.1.0",
         "next-auth": "^4.2.1",
