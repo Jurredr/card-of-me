@@ -1,5 +1,13 @@
 import { Input, useInput } from '@nextui-org/react'
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
+import { debounce } from 'lodash'
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import { getUserByUsername } from '../../src/userfetcher'
 
 interface Props {
@@ -16,6 +24,17 @@ const UsernameField: React.FC<Props> = (props) => {
   const [showFillerDiv, setShowFillerDiv] = useState(false)
   const [usernameValid, setUsernameValid] = useState(false)
   const [usernameTaken, setUsernameTaken] = useState(false)
+
+  const DEBOUNCE_DELAY = 250
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncer = useCallback(
+    debounce(async (value) => {
+      const user = await getUserByUsername(String(value))
+      user ? setUsernameTaken(true) : setUsernameTaken(false)
+      console.log(user)
+    }, DEBOUNCE_DELAY),
+    []
+  )
 
   const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
@@ -91,12 +110,9 @@ const UsernameField: React.FC<Props> = (props) => {
   // Call value callback when value changes
   useEffect(() => {
     if (props.valueCallback) props.valueCallback(value)
-    const checkExistence = async () => {
-      const user = await getUserByUsername(String(value))
-      user ? setUsernameTaken(true) : setUsernameTaken(false)
-    }
-    checkExistence()
-  }, [props, value])
+    // Check for username existence
+    debouncer(value)
+  }, [props, value, debouncer])
 
   // Call valid callback when valid changes
   useEffect(() => {
