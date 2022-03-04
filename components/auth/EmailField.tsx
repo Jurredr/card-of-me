@@ -1,5 +1,6 @@
 import { Input, useInput } from '@nextui-org/react'
 import { useEffect, useMemo, useState } from 'react'
+import { getUserByEmail } from '../../src/userfetcher'
 
 interface Props {
   initialValue?: string
@@ -14,6 +15,7 @@ interface Props {
 const EmailField: React.FC<Props> = (props) => {
   const [showFillerDiv, setShowFillerDiv] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
+  const [emailTaken, setEmailTaken] = useState(false)
 
   const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
@@ -46,15 +48,32 @@ const EmailField: React.FC<Props> = (props) => {
     // Set validity
     setShowFillerDiv(!isValid)
 
+    // Check existence
+    if (emailTaken) {
+      setEmailValid(false)
+      setShowFillerDiv(true)
+
+      return {
+        statuscolor: 'error',
+        color: 'error',
+        text: 'Email already in use'
+      }
+    }
+
     return {
       color: isValid ? '' : 'error',
       text: isValid ? '' : 'Please enter a valid email address'
     }
-  }, [props, value])
+  }, [props, value, emailTaken])
 
   // Call value callback when value changes
   useEffect(() => {
     if (props.valueCallback) props.valueCallback(value)
+    const checkExistence = async () => {
+      const user = await getUserByEmail(String(value))
+      user ? setEmailTaken(true) : setEmailTaken(false)
+    }
+    checkExistence()
   }, [props, value])
 
   // Call valid callback when valid changes
