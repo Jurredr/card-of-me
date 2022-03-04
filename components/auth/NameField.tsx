@@ -76,7 +76,7 @@ const NameField: React.FC<Props> = (props) => {
       color: 'success',
       text: ''
     }
-  }, [nameValid, props, value])
+  }, [props, value])
 
   // Call value callback when value changes
   useEffect(() => {
