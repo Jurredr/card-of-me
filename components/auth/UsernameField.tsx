@@ -12,7 +12,6 @@ interface Props {
 }
 
 const UsernameField: React.FC<Props> = (props) => {
-  const [usernameValid, setUsernameValid] = useState(false)
   const [showFillerDiv, setShowFillerDiv] = useState(false)
 
   const { value, bindings } = useInput(props.initialValue ?? '')
@@ -44,8 +43,7 @@ const UsernameField: React.FC<Props> = (props) => {
     const isLengthValid =
       String(value).length >= 1 && String(value).length <= 16
     if (isLengthValid === null || !isLengthValid) {
-      setUsernameValid(false)
-      if (props.validCallback) props.validCallback(usernameValid)
+      if (props.validCallback) props.validCallback(false)
 
       return {
         statuscolor: 'error',
@@ -57,8 +55,7 @@ const UsernameField: React.FC<Props> = (props) => {
     // Check content validity
     const isContentValid = /^[a-zA-Z0-9_]+$/.exec(String(value))
     if (isContentValid === null || !isContentValid) {
-      setUsernameValid(false)
-      if (props.validCallback) props.validCallback(usernameValid)
+      if (props.validCallback) props.validCallback(false)
 
       return {
         statuscolor: 'error',
@@ -67,37 +64,25 @@ const UsernameField: React.FC<Props> = (props) => {
       }
     }
 
-    // TODO: Check if username is already taken
-    // const user = getUserByUsername(String(value))
-    // user.then((snapshot) => {
-    // console.log(snapshot)
-    //   if (snapshot !== null) {
-    //     setUsernameValid(false)
-    //     if (props.validCallback) props.validCallback(usernameValid)
-
-    //     console.log('test')
-    //     return {
-    //       statuscolor: 'error',
-    //       color: 'error',
-    //       text: 'Username already taken'
-    //     }
-    //   }
-    // })
-
     // Username is valid at this point
-    setUsernameValid(true)
-    if (props.validCallback) props.validCallback(usernameValid)
+    if (props.validCallback) props.validCallback(true)
 
     return {
       statuscolor: 'default',
       color: 'success',
       text: `Looking good @${value}!`
     }
-  }, [usernameValid, props, value])
+  }, [props, value])
 
   // Call value callback when value changes
   useEffect(() => {
     if (props.valueCallback) props.valueCallback(value)
+
+    // TODO: Check if username is already taken
+    // ;async () => {
+    //   const user = await getUserByUsername(String(value))
+    //   console.log(user)
+    // }
   }, [props, value])
 
   return (

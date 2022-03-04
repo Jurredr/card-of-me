@@ -5,6 +5,7 @@ import 'windi.css'
 import '../styles/globals.scss'
 import '@fontsource/montserrat'
 import WebHead from '../components/WebHead'
+import { SSRProvider } from 'react-aria'
 
 // NextUI theme
 const theme = createTheme({
@@ -20,14 +21,16 @@ const theme = createTheme({
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider session={session}>
+    <SSRProvider>
       <NextUIProvider theme={theme}>
-        <WebHead />
-        <div className="relative h-screen w-screen bg-black">
-          <Component {...pageProps} />
-        </div>
+        <SessionProvider session={session}>
+          <WebHead />
+          <div className="relative h-screen w-screen bg-black">
+            <Component {...pageProps} />
+          </div>
+        </SessionProvider>
       </NextUIProvider>
-    </SessionProvider>
+    </SSRProvider>
   )
 }
 
