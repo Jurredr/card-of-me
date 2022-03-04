@@ -7,6 +7,7 @@ interface Props {
   placeholder?: string
   validCallback?: Dispatch<SetStateAction<boolean>>
   valueCallback?: Dispatch<SetStateAction<string | null>>
+  id: string
   submitted: boolean
   unsubmit: Function
 }
@@ -89,6 +90,7 @@ const UsernameField: React.FC<Props> = (props) => {
     <>
       <Input
         {...bindings}
+        id={props.id}
         aria-label="Username"
         // @ts-ignore
         status={helper.statuscolor}

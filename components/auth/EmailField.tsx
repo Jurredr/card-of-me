@@ -6,6 +6,7 @@ interface Props {
   placeholder?: string
   validCallback?: Dispatch<SetStateAction<boolean>>
   valueCallback?: Dispatch<SetStateAction<string | null>>
+  id: string
   submitted: boolean
   unsubmit: Function
 }
@@ -61,6 +62,7 @@ const EmailField: React.FC<Props> = (props) => {
     <>
       <Input
         {...bindings}
+        id={props.id}
         aria-label="Email"
         // @ts-ignore
         status={helper.color}

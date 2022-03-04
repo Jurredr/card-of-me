@@ -6,6 +6,7 @@ interface Props {
   placeholder?: string
   validCallback?: Dispatch<SetStateAction<boolean>>
   valueCallback?: Dispatch<SetStateAction<string | null>>
+  id: string
   submitted: boolean
   unsubmit: Function
 }
@@ -89,6 +90,7 @@ const NameField: React.FC<Props> = (props) => {
     <>
       <Input
         {...bindings}
+        id={props.id}
         aria-label={props.placeholder ? props.placeholder : 'Name'}
         // @ts-ignore
         status={helper.statuscolor}

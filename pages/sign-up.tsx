@@ -130,6 +130,7 @@ const SignUp: NextPage = () => {
 
             {/* Username */}
             <UsernameField
+              id="sign-up-username-field"
               validCallback={setUsernameValid}
               valueCallback={setUsernameValue}
               submitted={submittedClicked.username}
@@ -143,6 +144,7 @@ const SignUp: NextPage = () => {
 
             {/* Email */}
             <EmailField
+              id="sign-up-email-field"
               initialValue={email ? String(email) : ''}
               validCallback={setEmailValid}
               valueCallback={setEmailValue}
@@ -159,6 +161,7 @@ const SignUp: NextPage = () => {
             <div className="flex gap-3">
               <div>
                 <NameField
+                  id="sign-up-firstname-field"
                   placeholder="First name"
                   validCallback={setFirstNameValid}
                   valueCallback={setFirstNameValue}
@@ -173,6 +176,7 @@ const SignUp: NextPage = () => {
               </div>
               <div>
                 <NameField
+                  id="sign-up-lastname-field"
                   placeholder="Last name"
                   validCallback={setLastNameValid}
                   valueCallback={setLastNameValue}

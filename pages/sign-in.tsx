@@ -97,6 +97,7 @@ const SignIn: NextPage = () => {
 
             {/* Email */}
             <EmailField
+              id="sign-in-email-field"
               validCallback={setEmailValid}
               valueCallback={setEmailValue}
               submitted={submittedClicked}
