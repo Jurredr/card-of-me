@@ -1,5 +1,6 @@
 import { Input, useInput } from '@nextui-org/react'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
+import { getUserByUsername } from '../../src/userfetcher'
 
 interface Props {
   initialValue?: string
@@ -14,6 +15,7 @@ interface Props {
 const UsernameField: React.FC<Props> = (props) => {
   const [showFillerDiv, setShowFillerDiv] = useState(false)
   const [usernameValid, setUsernameValid] = useState(false)
+  const [usernameTaken, setUsernameTaken] = useState(false)
 
   const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
@@ -65,6 +67,17 @@ const UsernameField: React.FC<Props> = (props) => {
       }
     }
 
+    // Check existence
+    if (usernameTaken) {
+      setUsernameValid(false)
+
+      return {
+        statuscolor: 'error',
+        color: 'error',
+        text: 'Username already taken'
+      }
+    }
+
     // Username is valid at this point
     setUsernameValid(true)
 
@@ -73,17 +86,16 @@ const UsernameField: React.FC<Props> = (props) => {
       color: 'success',
       text: `Looking good @${value}!`
     }
-  }, [props, value])
+  }, [props, value, usernameTaken])
 
   // Call value callback when value changes
   useEffect(() => {
     if (props.valueCallback) props.valueCallback(value)
-
-    // TODO: Check if username is already taken
-    // ;async () => {
-    //   const user = await getUserByUsername(String(value))
-    //   console.log(user)
-    // }
+    const checkExistence = async () => {
+      const user = await getUserByUsername(String(value))
+      user ? setUsernameTaken(true) : setUsernameTaken(false)
+    }
+    checkExistence()
   }, [props, value])
 
   // Call valid callback when valid changes
