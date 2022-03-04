@@ -1,6 +1,5 @@
 import { Input, useInput } from '@nextui-org/react'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
-import { getUserByUsername } from '../../src/userfetcher'
 
 interface Props {
   initialValue?: string
@@ -14,6 +13,7 @@ interface Props {
 
 const UsernameField: React.FC<Props> = (props) => {
   const [showFillerDiv, setShowFillerDiv] = useState(false)
+  const [usernameValid, setUsernameValid] = useState(false)
 
   const { value, bindings } = useInput(props.initialValue ?? '')
   const helper = useMemo(() => {
@@ -44,7 +44,7 @@ const UsernameField: React.FC<Props> = (props) => {
     const isLengthValid =
       String(value).length >= 1 && String(value).length <= 16
     if (isLengthValid === null || !isLengthValid) {
-      if (props.validCallback) props.validCallback(false)
+      setUsernameValid(false)
 
       return {
         statuscolor: 'error',
@@ -56,7 +56,7 @@ const UsernameField: React.FC<Props> = (props) => {
     // Check content validity
     const isContentValid = /^[a-zA-Z0-9_]+$/.exec(String(value))
     if (isContentValid === null || !isContentValid) {
-      if (props.validCallback) props.validCallback(false)
+      setUsernameValid(false)
 
       return {
         statuscolor: 'error',
@@ -66,7 +66,7 @@ const UsernameField: React.FC<Props> = (props) => {
     }
 
     // Username is valid at this point
-    if (props.validCallback) props.validCallback(true)
+    setUsernameValid(true)
 
     return {
       statuscolor: 'default',
@@ -85,6 +85,11 @@ const UsernameField: React.FC<Props> = (props) => {
     //   console.log(user)
     // }
   }, [props, value])
+
+  // Call valid callback when valid changes
+  useEffect(() => {
+    if (props.validCallback) props.validCallback(usernameValid)
+  }, [props, usernameValid])
 
   return (
     <>

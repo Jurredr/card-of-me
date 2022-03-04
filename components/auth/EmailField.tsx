@@ -57,7 +57,7 @@ const EmailField: React.FC<Props> = (props) => {
     if (props.valueCallback) props.valueCallback(value)
   }, [props, value])
 
-  // Call value callback when valid changes
+  // Call valid callback when valid changes
   useEffect(() => {
     if (props.validCallback) props.validCallback(emailValid)
   }, [props, emailValid])
