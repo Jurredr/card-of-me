@@ -72,7 +72,7 @@ const SignUp: NextPage = () => {
     createUser({
       id: '',
       username: usernameValue.toLowerCase(),
-      email: emailValue,
+      email: emailValue.toLowerCase(),
       name: {
         firstName: firstNameValue.trim(),
         lastName: lastNameValue.trim()
@@ -155,6 +155,7 @@ const SignUp: NextPage = () => {
                   email: false
                 })
               }
+              takenCheck={true}
             />
 
             {/* Full name */}

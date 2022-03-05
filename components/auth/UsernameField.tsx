@@ -31,7 +31,6 @@ const UsernameField: React.FC<Props> = (props) => {
     debounce(async (value) => {
       const user = await getUserByUsername(String(value))
       user ? setUsernameTaken(true) : setUsernameTaken(false)
-      console.log(user)
     }, DEBOUNCE_DELAY),
     []
   )
