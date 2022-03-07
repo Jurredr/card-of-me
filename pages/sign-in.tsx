@@ -1,4 +1,5 @@
 import { Button, StyledLink } from '@nextui-org/react'
+import { motion } from 'framer-motion'
 import { NextPage } from 'next'
 import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -11,6 +12,12 @@ import OAuthButtons from '../components/auth/OAuthButtons'
 import DividerText from '../components/DividerText'
 import LoadBasedButton from '../components/LoadBasedButton'
 import { getUserByEmail } from '../src/userfetcher'
+
+const variants = {
+  hidden: { opacity: 0, x: 200, y: 0 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 0, y: -100 }
+}
 
 const SignIn: NextPage = () => {
   const router = useRouter()
@@ -51,11 +58,18 @@ const SignIn: NextPage = () => {
   }
 
   return (
-    <div className="w-full h-full grid grid-cols-2 items-center justify-center">
+    <motion.div
+      variants={variants} // Pass the variant object into Framer Motion
+      initial="hidden" // Set the initial state to variants.hidden
+      animate="enter" // Animated state to variants.enter
+      exit="exit" // Exit state (used later) to variants.exit
+      transition={{ type: 'linear' }} // Set the transition to linear
+      className="w-full h-full grid grid-cols-2 items-center justify-center"
+    >
       {/* Left */}
       <div className="bg-black z-10 h-screen w-screen lg:w-[50vw] flex justify-center items-center">
         {/* Back button */}
-        <Link href="/" passHref>
+        <Link href="/" scroll={false} passHref>
           <Button
             className="absolute top-5 left-5 py-2 px-4 rounded-full bg-dark-300"
             auto
@@ -81,7 +95,7 @@ const SignIn: NextPage = () => {
           <div className="mt-2">
             <p className="tracking-normal">
               Don&apos;t have an account?{' '}
-              <Link href="/sign-up" passHref>
+              <Link href="/sign-up" scroll={false} passHref>
                 <StyledLink underline>Sign up for free</StyledLink>
               </Link>
             </p>
@@ -117,7 +131,7 @@ const SignIn: NextPage = () => {
 
       {/* Right */}
       <div className="bg-gradient-to-br from-cyan-500 to-purple-600 relative hidden lg:flex self-center items-center float-right w-[50vw] h-screen"></div>
-    </div>
+    </motion.div>
   )
 }
 
