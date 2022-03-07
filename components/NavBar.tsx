@@ -56,7 +56,7 @@ const NavBar: React.FC = () => {
           onKeyPress={(event) => {
             if (event.key === 'Enter') {
               // @ts-ignore
-              router.push(`/@${event.target.value}`)
+              router.push(`/@${event.target.value.toLowerCase()}`)
             }
           }}
         />
